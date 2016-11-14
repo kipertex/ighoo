@@ -1,17 +1,9 @@
 # ighoo
 
-// actualizar files
-
-git status
-
-git push
-  asistex
-  password
-
-git commit -a -m comentario
-
+// subir archivos nuevos
 git add archivo.nuevo
 git status
+git commit -a -m comentario xx
 git push
   asistex
   password
