@@ -1,0 +1,9 @@
+# ighoo
+
+// actualizar files
+
+git push
+  asistex
+  password
+
+git commit -a -m comentario
