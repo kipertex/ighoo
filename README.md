@@ -1,3 +1,4 @@
 # ighoo
-** Interfase grafica para harbour
-* Graphic user interfase for harbour 
+
+* Interfase grafica para harbour
+* Graphic user interfase for harbour
