@@ -2,10 +2,17 @@
 
 // actualizar files
 
+git status
+
 git push
   asistex
   password
 
 git commit -a -m comentario
 
+git add archivo.nuevo
+git status
+git push
+  asistex
+  password
 
