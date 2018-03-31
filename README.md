@@ -42,7 +42,7 @@ Sample:
       oCmb1:onChange        := {|| showInfo( "Event oCmb1:onChange       " ) }
       oCmb1:OnClick         := {|| showInfo( "Event oCmb1:OnClick        " ) }
       oCmb1:OnEnter         := {|| showInfo( "Event oCmb1:OnEnter        " ) }
-      oCmb1:onChangeDisplay := {|| showInfo( "Event oCmb1:onChangeDisplay" ) }  // no in this combo
+      // oCmb1:onChangeDisplay := {|| showInfo( "Event oCmb1:onChangeDisplay" ) }  
       oCmb1:onListDisplay   := {|| showInfo( "Event oCmb1:onListDisplay  " ) }
       oCmb1:onListClose     := {|| showInfo( "Event oCmb1:onListClose    " ) }
       oCmb1:onLostFocus     := {|| showInfo( "Event oCmb1:onLostFocus    " ) }
