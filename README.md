@@ -8,17 +8,17 @@
 
 Sample:
 
-#include "igh.ch"
-MEMVAR oWin
+    #include "igh.ch"
+    MEMVAR oWin
 
-PROCEDURE Main()
-   LOCAL oMenu, oCmb1, oBtnRel, oStat
-   PUBLIC oWin
-   SET LANGUAGE TO SPANISH
+    PROCEDURE Main()
+      LOCAL oMenu, oCmb1, oBtnRel, oStat
+      PUBLIC oWin
+      SET LANGUAGE TO SPANISH
 
-   // win declaration
-   oWin := window():new( , "oWin" )
-   oWin:text := "test IGH"
+     // win declaration
+     oWin := window():new( , "oWin" )
+     oWin:text := "test IGH"
 
       // main menu 
       Define Menu oMenu
@@ -57,7 +57,7 @@ PROCEDURE Main()
       oBtnRel:text           := "Close"
       oBtnRel:onClick        := {|| oWin:release() }
 
-   oWin:center()
-   oWin:activate()
+     oWin:center()
+     oWin:activate()
 
-   RETURN
+     RETURN
