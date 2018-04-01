@@ -1,10 +1,9 @@
 # ighoo
 
 *IGHoo* is GUI lib written in harbour OOP sintax
-
-* Interfase grafica para harbour
-* Graphic user interfase for harbour
-* windows OS
+ 
+* Interfase grafica harbour para crear aplicacion Microsoft Windows 
+* Graphic user interfase for harbour to create Microsoft Windows applications.
 
 Sample:
 
@@ -14,6 +13,7 @@ Sample:
     PROCEDURE Main()
       LOCAL oMenu, oCmb1, oBtnRel, oStat
       PUBLIC oWin
+      
       SET LANGUAGE TO SPANISH
 
      // win declaration
