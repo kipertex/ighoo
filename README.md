@@ -1,6 +1,6 @@
 # ighoo
 
-*IGH* is GUI lib written in harbour OOP sintax
+*IGHoo* is GUI lib written in harbour OOP sintax
 
 * Interfase grafica para harbour
 * Graphic user interfase for harbour
