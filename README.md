@@ -20,6 +20,7 @@ Sample:
      oWin := window():new( , "oWin" )
      oWin:text := "test IGH"
 
+
       // main menu 
       Define Menu oMenu
          PopUp "set"
@@ -27,13 +28,20 @@ Sample:
          End PopUp
       End Menu oMenu Of oWin
 
+
       // statusbar
       oStat := statusBar():new( oWin, "oStat" )
       oStat:addItem( "item 1", 0, {|| MsgBox( "click 1" ) }, , "iconowin", )
       oStat:addItem( "item 2", 100, {|| MsgBox( "click 2" ) }, , "rc_ico", )
 
+
+      // syntax 1- @ row, col 
+      @ 10, 20 label oLbl of oWin width 400 height 40 text "sample of IGH"
+
+
+      // syntax 2-
       oCmb1 := comboBox():new( oWin, "oCmb1" )
-      oCmb1:row             := 20
+      oCmb1:row             := 50
       oCmb1:col             := 30
       oCmb1:width           := 210
       oCmb1:minWidth        := 100
@@ -51,10 +59,23 @@ Sample:
       oCmb1:value           := 1
       oCmb1:tooltip         := "tooltip"
 
+
+      //  syntax 3-  With Object
+      WITH OBJECT my7z := T7Zip():new()
+         :cArcName        := "ArcName"
+         :aFiles          := { "*.txt", "*.doc" }
+         :cPassword       := "123"
+         :lShowProcessDlg := .T.
+         :lRecursive      := .F.          /* .T. = include sub-dirs */
+         :aExcludeFiles   := { "*.prg" }  /* prg files will not be archived */
+      END   
+
+
       oBtnRel := button():new( oWin, "oBtnRel" )
       oBtnRel:autoSizePos    := "left2right=120;top2bottom=40"
       oBtnRel:text           := "Close"
       oBtnRel:onClick        := {|| oWin:release() }
+
 
      oWin:center()
      oWin:activate()
