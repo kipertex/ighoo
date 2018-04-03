@@ -1,0 +1,167 @@
+commit d38ca58e5a4d351085b4c6ab37133b74cb81149e
+Author: carlosbritos <carlitosbritos@yahoo.com.ar>
+Date:   Tue Apr 3 17:42:40 2018 -0300
+
+    create changelog file
+
+commit dd3af49792aa626e562e9ebcec7e0ca2b46a3183
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Tue Apr 3 15:34:49 2018 -0300
+
+    Create .keep
+
+commit cb97044892c218597d380c6d2e89b0866cdc726c
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Mon Apr 2 16:43:11 2018 -0300
+
+    Update README.md
+
+commit f5e90f04c07a38532a564738782a5c5fc16ce857
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:24:40 2018 -0300
+
+    Update README.md
+
+commit 8b4b3111b0b37bb495b82ab90bcfd7f018428ff4
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:20:07 2018 -0300
+
+    Create .gitignore
+
+commit a0aecf226b69e3ce65000eb9af15a2ad64dcd64f
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:16:32 2018 -0300
+
+    Create .keep
+
+commit abfb7c99700effcc0102d749481f377c3110e4c9
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:15:49 2018 -0300
+
+    Create .keep
+
+commit 34da500c1a1f1b7a605cd3c19562f3661afb8e32
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:15:09 2018 -0300
+
+    Create .keep
+
+commit d4f2bb5cd2e65aba1fd877754b0f20e6b891d193
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:14:18 2018 -0300
+
+    Create .keep
+
+commit b04828bca9611ed6ad951fe1329308fac41b09d0
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:13:31 2018 -0300
+
+    Create .keep
+
+commit 83f237930d611c64c7389481e9f8e31922e8bfd5
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:12:47 2018 -0300
+
+    Create .keep
+
+commit 6aedcde2d2c943bd2b0f8742da65afdfa9500b29
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 19:12:11 2018 -0300
+
+    Create .keep
+
+commit 803298362b81082d9d671efda9cb6806105f09e2
+Author: Carlos Britos <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 17:39:51 2018 -0300
+
+    Update README.md
+
+commit 5f64989c13d9e8f03e484ff6d019a2ab7eb9dc5a
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sun Apr 1 06:32:40 2018 -0300
+
+    Update README.md
+
+commit 2b426407eeec99322dc21f2225a10deec00cfe26
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sat Mar 31 09:09:45 2018 -0300
+
+    Update README.md
+
+commit 621be280c70c58a40175e04064844208414aa447
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sat Mar 31 09:08:14 2018 -0300
+
+    Update README.md
+
+commit 4a4157b0471c7cc459c192a414ee5692ad7b8988
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sat Mar 31 09:06:39 2018 -0300
+
+    Update README.md
+
+commit 8955da6129a0dd6accbd2a777ececf65f69a96d0
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sat Mar 31 08:59:37 2018 -0300
+
+    Delete added.txt
+
+commit 50acd164cf432b71f7ef404bdd0f1df66c033b02
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sat Mar 31 08:58:15 2018 -0300
+
+    Update README.md
+
+commit eead345c72a18ec71fba39a678f0463bc7cb0b83
+Author: carlosbritos <carlitosbritos@yahoo.com.ar>
+Date:   Sun Nov 13 22:48:26 2016 -0300
+
+    coment3
+
+commit 884c8ccbee3b0dc2c7ab56b26083c3bf9834ba9b
+Author: carlosbritos <carlitosbritos@yahoo.com.ar>
+Date:   Sun Nov 13 22:45:13 2016 -0300
+
+    coment2
+
+commit 363b54ffade6e86022b3287ad348605e52c08daf
+Author: carlosbritos <carlitosbritos@yahoo.com.ar>
+Date:   Sun Nov 13 22:32:39 2016 -0300
+
+    comentario
+
+commit c0332f00193f18ab2fe16ae79b26e5b508524cdc
+Author: carlosbritos <carlitosbritos@yahoo.com.ar>
+Date:   Sun Nov 13 22:31:42 2016 -0300
+
+    comentario
+
+commit 476525d8500e1b86042d9648b05abadfe2b6b26c
+Author: carlosbritos <carlitosbritos@yahoo.com.ar>
+Date:   Sun Nov 13 21:57:36 2016 -0300
+
+    envio
+
+commit 7390c740750ba1bf53d006446ec3af6596ad974b
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sun Nov 13 21:22:38 2016 -0300
+
+    Update README.md
+
+commit b60f80d8327ed23cf3f686b26c07af77055fc7f7
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sun Nov 13 21:20:48 2016 -0300
+
+    actualizacion
+
+commit 84fe4fa2b8f8f10ee9807ecb5464ac77c40800bc
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sun Nov 6 07:15:04 2016 -0300
+
+    Create README.md
+
+commit d75b75fb5c46c363f389d91004960fa9e5b028bc
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sun Nov 6 07:12:41 2016 -0300
+
+    Initial commit
