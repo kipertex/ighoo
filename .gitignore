@@ -4,18 +4,15 @@
 # build generated files
 /include/ighver.h
 bak/*/
-bin/*/
 lib/*/
 obj
-.hbmk/
-*.hbl
-*.hbd
-*.hbr
-*.hrb
 *.zip
 *.7z
 *.dic
 git-1.hb
+
+#  bin/*/
+
 
 # 'install'-ed binaries
 *.exe
@@ -28,5 +25,7 @@ git-1.hb
 
 # misc junk
 *.bak
+LICENSE
+
 
 # exceptions
