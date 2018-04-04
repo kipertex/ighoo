@@ -5,27 +5,18 @@
 /include/ighver.h
 bak/*/
 lib/*/
-obj
+obj/*/
+bin/*/
 *.zip
 *.7z
 *.dic
 git-1.hb
-
-#  bin/*/
-
 
 # 'install'-ed binaries
 *.exe
 *.dll
 *.lib
 
-# packages
-
-# not hosted contribs
-
 # misc junk
 *.bak
 LICENSE
-
-
-# exceptions
