@@ -4,7 +4,7 @@
 # build generated files
 /include/ighver.h
 bak/*/
-lib/*/ 
+lib/*/
 obj/*/
 bin/*/
 *.zip
@@ -19,4 +19,4 @@ git-1.hb
 
 # misc junk
 *.bak
-LICENSE 
+LICENSE
