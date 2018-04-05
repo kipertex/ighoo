@@ -116,11 +116,11 @@ FUNCTION DoCommit()
          ENDIF
 
             Qout( "do push " )
-            hb_processRun( "git push ", ,@cStdOut  )
-            // Qout( "->"+ cStdOut )
+            hb_processRun( "git push ", ,@cStdOut  ) // NO PONER cStdErr
+            Qout( "->"+ cStdOut )
             // Qout( "+>"+ cStdErr )
 
-/*
+            /*
             IF "Writing objects: 100%" $ cStdErr
                Qout( "Commit exitoso" )
 
@@ -134,7 +134,7 @@ FUNCTION DoCommit()
                Qout( "Commit fallo" )
 
             ENDIF
-*/            
+            */            
 
          // ENDIF
    ENDIF   
