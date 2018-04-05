@@ -116,7 +116,7 @@ FUNCTION DoCommit()
          ENDIF
 
             Qout( "do push " )
-            hb_processRun( "git push ", ,@cStdOut, @cStdErr )
+            hb_processRun( "git push ", ,@cStdOut  )
             // Qout( "->"+ cStdOut )
             // Qout( "+>"+ cStdErr )
 

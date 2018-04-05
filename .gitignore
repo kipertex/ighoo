@@ -9,7 +9,7 @@ obj/*/
 bin/*/
 *.zip
 *.7z
-*.dic0
+*.dic
 git-1.hb
 
 # 'install'-ed binaries
