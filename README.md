@@ -2,7 +2,7 @@
 
 *IGHoo* is GUI lib written in harbour OOP sintax
  
-* Interfase grafica harbour para crear aplicacion Microsoft Windows 
+* Interfase grafica harbour para crear aplicaciones en Microsoft Windows 
 * Graphic user interfase for harbour to create Microsoft Windows applications.
 
 Sample:
