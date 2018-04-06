@@ -11,6 +11,7 @@ bin/*/
 *.7z
 *.dic
 git-1.hb
+log.log
 
 # installed binaries
 *.exe
