@@ -12,7 +12,7 @@ bin/*/
 *.dic
 git-1.hb
 
-# 'install'-ed binaries
+# installed binaries
 *.exe
 *.dll
 *.lib
