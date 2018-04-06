@@ -11,7 +11,7 @@ Sample:
     MEMVAR oWin
 
     PROCEDURE Main()
-      LOCAL oMenu, oCmb1, oBtnRel, oStat
+      LOCAL oMenu, oCmb1, oBtnRel, oStat, o7z
       PUBLIC oWin
       
       SET LANGUAGE TO SPANISH
@@ -61,7 +61,7 @@ Sample:
 
 
       //  syntax 3-  With Object
-      WITH OBJECT my7z := T7Zip():new()
+      WITH OBJECT o7z := T7Zip():new()
          :cArcName        := "ArcName"
          :aFiles          := { "*.txt", "*.doc" }
          :cPassword       := "123"
