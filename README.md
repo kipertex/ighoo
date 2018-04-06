@@ -36,7 +36,7 @@ Sample:
 
 
       // syntax 1- @ row, col 
-      @ 10, 20 label oLbl of oWin width 400 height 40 text "sample of IGH"
+      @ 10, 20 label oLbl of oWin width 400 height 25 text "sample of IGH"
 
 
       // syntax 2-
