@@ -11,6 +11,8 @@ bin/*/
 *.7z
 *.dic
 git-1.hb
+git-2.hb
+git-2.lst
 *.log
 
 
