@@ -103,8 +103,19 @@ FUNCTION DoCommit()
       // DoNothing()
       RETURN .F.
 
-   ELSEIF "Your branch is ahead of" $ cStdOut
-      Qout( "Se debe hacer un git push manual" )
+   ELSEIF .Not. Empty( cStdErr )
+      Qout( cStdErr + hb_Eol() )
+
+      IF "Aborting commit due to empty commit message" $ cStdErr
+         CheckChangeLog()
+      ENDIF
+      RETURN .F.
+
+   ELSE
+      Qout( cStdOut + hb_Eol() )
+
+   // ELSEIF "Your branch is ahead of" $ cStdOut
+   //    Qout( "Se debe hacer un git push manual" )
       //hb_processRun( "git push", ,@cStdOut )
       // Qout( "->"+ cStdOut + hb_Eol() )
       // RETURN .F.
@@ -112,14 +123,14 @@ FUNCTION DoCommit()
 
    //IF hb_IsString( cStdErr ) .AND. .NOT. Empty( cStdErr )
 
-   IF "Changes not staged for commit" $ cStdErr
-      // DoStash()
-      RETURN .F.
+   // IF "Changes not staged for commit" $ cStdErr
+   //    // DoStash()
+   //    RETURN .F.
 
-   ELSEIF "Aborting commit due to empty commit message" $ cStdErr
-      CheckChangeLog()
-      RETURN .F.
-   ENDIF
+   // ELSEIF "Aborting commit due to empty commit message" $ cStdErr
+   //    CheckChangeLog()
+   //    RETURN .F.
+   // ENDIF
 
    Qout( "do push" + hb_Eol() )
    hb_processRun( "git push ", ,@cStdOut  ) // DONT USE cStdErr
