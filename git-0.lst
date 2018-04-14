@@ -3,7 +3,7 @@
 # una linea en blanco indica fin de la tabla @ tocommit
 
 @ commit
-.\
+.\*.*
 
 #..\samples\*.prg
 #..\samples\*.c

@@ -249,7 +249,8 @@ PROCEDURE Main()
          ENDIF
 
          // solo si estan permitidos aca se realiza la tarea aunque esten definidos en @ analizar
-         IF hb_Ascan( { ".prg",".c",".rc",".ch",".h",".idu",".txt",".bat",".md"}, Lower( Vias( aEachFile[1], 4 )  )  ) == 0
+
+         IF hb_Ascan( { ".gitignore", ".prg",".c",".rc",".ch",".h",".idu",".txt",".bat",".md"}, Lower( Vias( aEachFile[1], 4 )  )  ) == 0
             Qout( "- not authorized -", Lower( cPath + aEachFile[1] ) )
             nFilesNoAutorized ++
             LOOP
@@ -687,10 +688,25 @@ FUNCTION Vias( cFile, nControl )
             cRet += SubStr( cP, iif( Empty( cD ), 1, nPosDS + Len( hb_osDriveSeparator() ) + 1 ) )
             Exit
          CASE 3 // archivo
-            cRet += hb_FNameName( cFile )
+            // trick when there is no name, just .extension, like .gitignore
+            // for window .gitignore is an extension and not file name
+            // for harbour .gitignore is a file name
+            IF SubStr( hb_FNameName( cFile ), 1, 1 ) == "."
+               cRet += ""
+            ELSE
+               cRet += hb_FNameName( cFile )
+            ENDIF
+
             Exit
          CASE 4 // extension con punto
-            cRet += hb_FNameExt( cFile )
+            // trick when there is no name, just .extension, like .gitignore
+            // for window .gitignore is an extension and not file name
+            // for harbour .gitignore is a file name
+            IF SubStr( hb_FNameName( cFile ), 1, 1 ) == "."
+               cRet += hb_FNameName( cFile )
+            ELSE
+               cRet += hb_FNameExt( cFile )
+            ENDIF
             Exit
          CASE 5 // extension sin punto
             cRet += SubStr( cE, 2 )

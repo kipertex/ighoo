@@ -1,0 +1,28 @@
+# To validate, run:
+#   'git ls-files -i --exclude-standard'
+
+# build generated files
+/include/ighver.h
+bak/*/
+lib/*/
+obj/*/
+bin/*/
+*.zip
+*.7z
+*.dic
+git-0.hb
+git-1.hb
+git-2.hb
+*.lst
+*.log
+
+
+# installed binaries
+*.exe
+*.dll
+*.lib
+
+# misc junk
+*.bak
+LICENSE
+
