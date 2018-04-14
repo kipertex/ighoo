@@ -60,16 +60,9 @@ FUNCTION Main()
 
       DoCommit()
 
-   ELSEIF "CONFLICT (modify/delete)" $ cStdErr
+   ELSEIF .Not. Empty( cStdErr )
       Qout( cStdErr )
       RETURN .F.
-
-   ELSEIF "error: Pulling is not possible" $ cStdErr
-      Qout( cStdErr )
-      RETURN .F.
-
-
-
 
    ELSE // IF "Updating" $ cStdOut
       // IF "Fast-forward" $ cStdOut
