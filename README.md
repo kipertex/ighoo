@@ -1,9 +1,9 @@
 # ighoo
 
-*IGHoo* is GUI lib written in harbour OOP syntax.
- 
-* Interfase grafica harbour para crear aplicaciones en Microsoft Windows 
+*IGHoo* is GUI lib written with harbour OOP syntax.
+
 * Graphic user interfase for harbour to create Microsoft Windows applications.
+* Interfase grafica harbour para crear aplicaciones en Microsoft Windows
 
 Sample:
 
@@ -13,15 +13,15 @@ Sample:
     PROCEDURE Main()
       LOCAL oMenu, oCmb1, oBtnRel, oStat, o7z
       PUBLIC oWin
-      
+
       SET LANGUAGE TO SPANISH
 
-     // win declaration
-     oWin := window():new( , "oWin" )
-     oWin:text := "test IGH"
+      // win declaration
+      oWin := window():new( , "oWin" )
+      oWin:text := "test IGH"
 
 
-      // main menu 
+      // main menu
       Define Menu oMenu
          PopUp "set"
             Item "visible"  Action oCmb1:visible( ! oCmb1:visible() )
@@ -31,11 +31,11 @@ Sample:
 
       // statusbar
       oStat := statusBar():new( oWin, "oStat" )
-      oStat:addItem( "item 1", 0, {|| MsgBox( "click 1" ) }, , "iconowin", )
+      oStat:addItem( "item 1", 0, {|| MsgBox( "click 1" ) } )
       oStat:addItem( "item 2", 100, {|| MsgBox( "click 2" ) }, , "rc_ico", )
 
 
-      // syntax 1- @ row, col 
+      // syntax 1- @ row, col
       @ 10, 20 label oLbl of oWin width 400 height 25 text "sample of IGH"
 
 
@@ -45,7 +45,7 @@ Sample:
       oCmb1:col             := 30
       oCmb1:width           := 210
       oCmb1:minWidth        := 100
-      oCmb1:height          := 180     
+      oCmb1:height          := 180
       oCmb1:items           := { "aa", "bbb", "ccc" }
       oCmb1:onChange        := {|| showInfo( "Event oCmb1:onChange       " ) }
       oCmb1:OnClick         := {|| showInfo( "Event oCmb1:OnClick        " ) }
@@ -54,7 +54,7 @@ Sample:
       oCmb1:onListClose     := {|| showInfo( "Event oCmb1:onListClose    " ) }
       oCmb1:onLostFocus     := {|| showInfo( "Event oCmb1:onLostFocus    " ) }
       oCmb1:onGotFocus      := {|| showInfo( "Event oCmb1:onGotFocus     " ) }
-      oCmb1:backColor       := 16769984 // or {r,g,b]
+      oCmb1:backColor       := 16769984 // or {R,G,B}
       oCmb1:fontColor       := 255
       oCmb1:value           := 1
       oCmb1:tooltip         := "tooltip"
@@ -68,7 +68,7 @@ Sample:
          :lShowProcessDlg := .T.
          :lRecursive      := .F.          /* .T. = include sub-dirs */
          :aExcludeFiles   := { "*.prg" }  /* prg files will not be archived */
-      END   
+      END
 
 
       oBtnRel := button():new( oWin, "oBtnRel" )
@@ -77,7 +77,8 @@ Sample:
       oBtnRel:onClick        := {|| oWin:release() }
 
 
-     oWin:center()
-     oWin:activate()
+      oWin:center()
+      oWin:activate()
 
-     RETURN
+      RETURN
+

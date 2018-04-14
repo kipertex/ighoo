@@ -4,7 +4,7 @@
  * IGH - Interfase Grafica Harbour
  * IGH Source Code
  *
- * Copyright 2011-Today by Carlos Britos < bcd12a (a_t) yahoo.com.ar > (Uruguay)
+ * Copyright 2011-2018 by Carlos Britos < asistex (a_t) yahoo.com.ar > (Uruguay)
  * License: Read License.md
  */
 
@@ -41,27 +41,53 @@
 
 #define _GIT_2_PATH_  Lower( hb_PathNormalize( hb_DirSepToOS( hb_DirBase()  ) ) ) /* must end with \ */
 #define _CHANGELOG_FILE_ "log.log"
-#define _LIST_OF_FILES_  "git-2.lst"
+#define _LIST_OF_FILES_  "git-0.lst"
+#define _MY_NAME_        "Carlos Britos < asistex (a_t) yahoo.com.ar >"
 
-MEMVAR hValores
-
+MEMVAR hDatos
 
 /*-----------------------------------*/
 
 PROCEDURE Main()
 
-   LOCAL a, aGit, aFiles, cLine, aToCommit := { "*.*" }, aToIgnore := {}
+   LOCAL i, a, aGit, aFiles, cLine, aToCommit := {}, aToIgnore := {}
    LOCAL lAddToArrayCommit := .F.
    LOCAL lAddToArrayIgnore := .F.
    LOCAL oFile, aEachFile, cMask, cPath
    LOCAL aFilesToCommit := {}
-   LOCAL nFiles := 0, nFilesNewer := 0
+   LOCAL nFiles := 0
+   LOCAL nFilesNewer := 0
    LOCAL nFilesWithChangeLog := 0
    LOCAL nFilesIgnored := 0
+   LOCAL nFilesOlder := 0
+   LOCAL nFilesNoAutorized := 0
+   LOCAL tFechaGit
+   LOCAL nOffset := hb_UTCoffset()  // -> -10800
+   LOCAL cPathIgnored, aFilesIgnored, cMaskIgnore
+   LOCAL lIgnorar
+   // LOCAL aChanges
+   // LOCAL aFilesChanges := {}
 
-   PUBLIC hValores := hb_hash()
+   PUBLIC hDatos := hb_Hash()
 
-   Qout( "path git-2.hb ", _GIT_2_PATH_ )
+   SET EXACT ON
+
+   // entrada nueva
+   hDatos[ "newentrylog" ] := hb_StrFormat( "%1$s UTC %2$02d%3$02d  %4$s",;
+                                    hb_TToC( hb_DateTime(), "YYYY-MM-DD", "HH:MM:00" ),;
+                                    Int( nOffset / 3600 ),;
+                                    Int( ( ( nOffset / 3600 ) - Int( nOffset / 3600 ) ) * 60 ),;
+                                    _MY_NAME_ ) + hb_Eol()
+
+
+   Qout( "- working path", _GIT_2_PATH_ )
+
+   // VerValor( GitUser() ) // -> asistex  (asistex yahoo.com.ar)
+
+   // aChanges := DoctorChanges( Changes(), aFilesChanges )
+   // VerValor( aChanges )
+   // VerValor( aFilesChanges )
+
 
    aGit := hb_directory( _GIT_2_PATH_ + ".git\objects", "D" )
    // (A) (1)
@@ -72,23 +98,33 @@ PROCEDURE Main()
    //          4) (C) (8) 19:31:11
    //          5) (C) (1) D
 
-   Qout( "fecha ultimo commit ", aGit[1][3] )
+   IF .Not. Empty( aGit )
+      tFechaGit := aGit[1][3]
+
+   ELSE
+      tFechaGit := hb_DateTime() - 180
+      Qout( "* local Git repo not found" )
+
+   ENDIF
+
+   Qout( "- date of last commit", tFechaGit )
 
    // crear array aToCommit de archivos a commit desde el archivo _LIST_OF_FILES_
    // crear array aToIgnore de archivos a NO commit desde el archivo _LIST_OF_FILES_
    // son arrays unidimensionales con mascaras de [paths] + archivos (mascaras). ej: {"..\samples\*.prg","*.c"}
    IF hb_FileExists( _LIST_OF_FILES_ )
 
-      Qout( "cargando mascaras de archivos para el commit desde", "'" + _LIST_OF_FILES_ + "'" )
+      Qout( "loading mask of files to commit, from", "'" + _LIST_OF_FILES_ + "'" )
+      Qout( " " )
 
       oFile := TFileRead():new( _LIST_OF_FILES_ )
-      oFile:Open()
+      oFile:open()
 
-      IF oFile:Error()
-         ? oFile:ErrorMsg( "FileRead:" )
+      IF oFile:error()
+         ? oFile:errorMsg( "FileRead:" )
       ELSE
-         DO WHILE oFile:MoreToRead()
-            cLine := oFile:ReadLine()
+         DO WHILE oFile:moreToRead()
+            cLine := oFile:readLine()
             cLine := AllTrim( cLine )
 
             // lineas de comentarios
@@ -125,22 +161,23 @@ PROCEDURE Main()
             ENDIF
 
          ENDDO
-         oFile:Close()
-
-         IF Empty( aToCommit )
-            Qout( "no hay definidas mascaras o archivos en @ commit en", "'" + _LIST_OF_FILES_ + "'" )
-            RETURN
-         ENDIF
+         oFile:close()
 
 
       ENDIF
 
    ELSE
-      Qout( "el archivo", _LIST_OF_FILES_, "con mascaras para el commit no fue encontrado" )
-      hb_MemoWrit( _LIST_OF_FILES_, e"# @ marca inicio de una tabla. nombre tabla siempre en minusculas.\n# la lista debe estar continuada, sin lineas en blanco\n# una linea en blanco indica fin de la tabla\n\n@ commit\n#..\samples\*.prg\n\n@ ignore\n#..\samples\demo.prg\n" )
-      Qout( "el archivo", _LIST_OF_FILES_, "fue creado" )
+      Qout( "* not found the file", _LIST_OF_FILES_, "with mask of files to commit" )
+      hb_MemoWrit( _LIST_OF_FILES_, e"# @ commit | @ ignore are tags to start arrays. name must be in lower case.\n# the list must not have blank lines or comments\n# that means the end of array\n\n@ commit\n# .\\samples\\*.prg\n\n@ ignore\n# .\\samples\\demo.prg\n# .\\res\\*\n" )
+      Qout( "* the file", _LIST_OF_FILES_, "was created" )
 
    ENDIF
+
+   IF Empty( aToCommit )
+      Qout( "* there are no mask defined in '@ commit' of the file", "'" + _LIST_OF_FILES_ + "'" )
+      RETURN
+   ENDIF
+
 
 
    // parse each file
@@ -166,17 +203,65 @@ PROCEDURE Main()
 
       FOR EACH aEachFile IN aFiles
 
-         IF hb_Ascan( aToIgnore, Lower( cPath + aEachFile[1] )  ) > 0
-            Qout( "- ignored", Lower( cPath + aEachFile[1] ) )
+
+         // ignorados en la definicion del archivo .lst
+         /// esto solo funciona cuando la mascara no incluye comodines
+       //   IF hb_Ascan( aToIgnore, Lower( cPath + aEachFile[1] ) ) > 0
+       //      Qout( "- ignored /", Lower( cPath + aEachFile[1] ) )
+       //      nFilesIgnored ++
+       //      LOOP
+       //   ENDIF
+
+
+         // ignorados en la definicion del archivo .lst
+         // acepta los comodines en las mascaras
+         lIgnorar := .F.
+         FOR EACH cMaskIgnore IN aToIgnore
+            // VerValor( cMaskIgnore )
+            cPathIgnored := Vias( cMaskIgnore, 12 )
+            // VerValor( cPathIgnored )
+            IF cPath == cPathIgnored
+               aFilesIgnored := hb_directory( cMaskIgnore )
+               // VerValor( aFilesIgnored )
+
+               IF Len( aFilesIgnored ) > 0
+                  FOR i := 1 TO Len( aFilesIgnored )
+                     IF Lower( cPath + aEachFile[1] ) == Lower( cPath + aFilesIgnored[i][1] )
+                        Qout( "- ignored        -", Lower( cPath + aEachFile[1] ) )
+                        nFilesIgnored ++
+                        lIgnorar := .T.
+                     ENDIF
+                  NEXT
+               ENDIF
+            ENDIF
+         NEXT
+
+         IF lIgnorar
+            LOOP
+         ENDIF
+
+
+         // a ninguno de estos archivos se le puede hacer la tarea
+         IF hb_Ascan( { ".exe",".dll",".res",".db",".7z",".zip",".cab",".rar",".png",".bmp",".lib",".a",".res",".jpg",".pdf",".ico",".ani",".dat",".tif",".wav",".cur",".dbf",".ntx",".rtf",".dbt",".pps",".gif",".swf"}, Lower( Vias( aEachFile[1], 4 )  )  ) > 0
+            Qout( "- protected      -", Lower( cPath + aEachFile[1] ) )
             nFilesIgnored ++
             LOOP
          ENDIF
 
-         IF aEachFile[3] > aGit[1][3]
+         // solo si estan permitidos aca se realiza la tarea aunque esten definidos en @ analizar
+         IF hb_Ascan( { ".prg",".c",".rc",".ch",".h",".idu",".txt",".bat",".md"}, Lower( Vias( aEachFile[1], 4 )  )  ) == 0
+            Qout( "- not authorized -", Lower( cPath + aEachFile[1] ) )
+            nFilesNoAutorized ++
+            LOOP
+         ENDIF
+
+         // hacer la tarea
+         IF aEachFile[3] > tFechaGit
             nFilesNewer ++
             nFilesWithChangeLog += SearchChangelogInFile( cPath + aEachFile[1] )
 
          ELSE
+            nFilesOlder ++
             Qout( "- older than last commit", Lower( cPath + aEachFile[1] ) )
 
          ENDIF
@@ -185,10 +270,22 @@ PROCEDURE Main()
 
    NEXT
 
-   Qout( hb_NtoS( nFiles ), "analizados, " )
-   Qqout( hb_NtoS( nFilesIgnored ) + "/" + hb_NtoS( nFiles ), "ignorados" )
-   Qqout( hb_NtoS( nFilesNewer ) + "/" + hb_NtoS( nFiles ), "son mas nuevos que ultimo commit, " )
-   Qqout( hb_NtoS( nFilesWithChangeLog ) + "/" + hb_NtoS( nFilesNewer ), "con changelog, " )
+   Qout( " " )
+   Qout( hb_ValToStr( nFiles ), "parsed files" )
+   Qout( hb_ValToStr( nFilesIgnored ), "ignored" )
+   Qout( hb_ValToStr( nFilesNoAutorized ), "no authorized" )
+   Qout( hb_ValToStr( nFilesOlder ), "older than last commit", tFechaGit )
+   Qout( hb_ValToStr( nFilesNewer ), "newer than last commit", tFechaGit )
+   Qout( hb_ValToStr( nFilesWithChangeLog ), "with changelog in source, of", hb_NtoS( nFilesNewer ), "newer" )
+   IF nFilesNewer == 0
+      Qout( "- no files to commit" )
+   ELSE
+      IF nFilesNewer != nFilesWithChangeLog
+         Qout( "* there are files without changelog in source" )
+      ENDIF
+   ENDIF
+   Qout( " " )
+
 
    RETURN
 
@@ -208,9 +305,9 @@ FUNCTION SearchChangelogInFile( cFile )
    IF hb_FileExists( cFile )
 
       oFile := TFileRead():new( cFile )
-      oFile:Open()
+      oFile:open()
 
-      IF oFile:Error()
+      IF oFile:error()
          ? oFile:errorMsg( "FileRead:" )
       ELSE
          DO WHILE oFile:moreToRead()
@@ -219,7 +316,8 @@ FUNCTION SearchChangelogInFile( cFile )
             // lines of change log in source file
             IF "changelog" $ Lower( cLine ) .AND. ;
                     "#if" + "defined(" + "changelog)" $ StrTran( Lower( cLine ), " ", "" ) // " + " = pa evitar auto eliminacion
-               cInfoLog += "* " + cFile + hb_Eol()
+
+               cInfoLog += hDatos[ "newentrylog" ] + hb_Eol() + "* " + cFile + hb_Eol()
                lAddToCommit := .T.
                nFilesWithChangeLog ++
                LOOP
@@ -264,7 +362,7 @@ FUNCTION SearchChangelogInFile( cFile )
             // hb_MemoWrit( cFile, Rtrim( cFileText ) )
 
          ELSE
-            Qqout( "  - file is newer but Log is not found in source code" )
+            Qqout( "  - post dated, no Log in code" )
 
          ENDIF
 
@@ -275,7 +373,10 @@ FUNCTION SearchChangelogInFile( cFile )
    RETURN nFilesWithChangeLog
 
 /*-----------------------------------*/
-
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
 
 
 
@@ -606,13 +707,11 @@ FUNCTION Vias( cFile, nControl )
 
 FUNCTION ShowValue( xVar, nIndX )
 
-   LOCAL cxLineaRet := "", cTipoParam
+   LOCAL cRet := "", cTipoParam
    LOCAL aData, nLen, n
    LOCAL i, nInd := 2
    LOCAL aKeys, aValues
    LOCAL cTipo
-   LOCAL cRightParent := ")"
-   LOCAL cIgual := " "
 
    // hb_Default( nIndX, 0 )
    IF hb_IsNIL( nIndX )
@@ -626,100 +725,259 @@ FUNCTION ShowValue( xVar, nIndX )
    SWITCH cTipoParam
 
       CASE "A"
-         cxLineaRet += cTipo + "(" + hb_NtoS( Len( xVar ) ) + cRightParent
+         cRet += cTipo + "(" + hb_NtoS( Len( xVar ) ) + ")"
          FOR i := 1 TO Len( xVar )
             IF hb_IsArray( xVar[i ] )
-               cxLineaRet += hb_Eol() + Space( nInd ) + Str( i, 6 ) + cRightParent + " "
+               cRet += hb_Eol() + Space( nInd ) + Str( i, 6 ) + ") "
                nInd += 3
-               cxLineaRet += ShowValue( xVar[i ], nInd )
+               cRet += ShowValue( xVar[i ], nInd )
                nInd -= 3
             ELSE
-               cxLineaRet += hb_Eol() + Space( nInd ) + Str( i, 6 ) + cRightParent + " "
-               cxLineaRet += ShowValue( xVar[i ], nInd  )
+               cRet += hb_Eol() + Space( nInd ) + Str( i, 6 ) + ") "
+               cRet += ShowValue( xVar[i ], nInd  )
             ENDIF
          NEXT
          EXIT
 
       CASE "C"
-         cxLineaRet := cTipo + "(" + hb_NtoS( Len( xVar ) ) + cRightParent + cIgual + xVar
+         cRet := cTipo + "(" + hb_NtoS( Len( xVar ) ) + ") " + xVar
          EXIT
 
       CASE "M"
-         cxLineaRet := cTipo + "(" + hb_NtoS( Len( xVar ) ) + cRightParent + cIgual + xVar
+         cRet := cTipo + "(" + hb_NtoS( Len( xVar ) ) + ") " + xVar
          EXIT
 
       CASE "N"
-         cxLineaRet := cTipo + "(" + hb_NtoS( LenNum( xVar ) ) + cRightParent + cIgual + LTrim( hb_ValToStr( xVar ) )
+         cRet := cTipo + "(" + hb_NtoS( LenNum( xVar ) ) + ") " + LTrim( hb_ValToStr( xVar ) )
          EXIT
 
       CASE "D"
-         cxLineaRet := cTipo + hb_ValToStr( xVar ) + "    DToS() " + DToS( xVar ) + "    Format " + Set( 4 ) // + cRightParent
+         cRet := cTipo + hb_ValToStr( xVar ) + "    DToS() " + DToS( xVar ) + "    Format " + Set( 4 )
          EXIT
 
       CASE "L"
-         cxLineaRet := cTipo + hb_ValToStr( xVar )
+         cRet := cTipo + hb_ValToStr( xVar )
          EXIT
 
       CASE "O"
+         cRet := cTipo
          // aData := __bcdObjGetValueList( xVar )
          // nLen  := Len( aData )
-         // cxLineaRet += cTipo + "(" + hb_NtoS( nLen ) + cRightParent + hb_Eol() + Space( nInd ) + "ClassName= " + xVar:ClassName() + " :ClassH()=" + hb_NtoS( xVar:ClassH() ) + hb_Eol()
+         // cRet += cTipo + "(" + hb_NtoS( nLen ) + ")" + hb_Eol() + Space( nInd ) + "ClassName= " + xVar:ClassName() + " :ClassH()=" + hb_NtoS( xVar:ClassH() ) + hb_Eol()
          // FOR n := 1 TO nLen
-         //    cxLineaRet += Space( nInd + 3 ) + "Symbol " + hb_NtoS( n ) + cIgual + aData[ n ][ HB_OO_DATA_SYMBOL ] + hb_Eol()
+         //    cRet += Space( nInd + 3 ) + "Symbol " + hb_NtoS( n ) + " " + aData[ n ][ HB_OO_DATA_SYMBOL ] + hb_Eol()
          // NEXT
          EXIT
 
       CASE "B"
-         cxLineaRet := "(B){||...}"
+         cRet := "(B){||...} ->" + Space( nInd ) + ShowValue( Eval( xVar ) )
          EXIT
 
       CASE "P"
-         cxLineaRet := cTipo + LTrim( hb_ValToStr( xVar ) ) + " hb_HexToNum()= " + LTrim( Str( hb_HexToNum( SubStr( hb_ValToStr( xVar ), 3 ) ) ) ) // + cRightParent
+         cRet := cTipo + LTrim( hb_ValToStr( xVar ) ) + " hb_HexToNum()= " + LTrim( Str( hb_HexToNum( SubStr( hb_ValToStr( xVar ), 3 ) ) ) )
          EXIT
 
       CASE "H"
-         IF Empty( xVar )
-            cxLineaRet := cTipo + "(0)"
-         ELSE
-            cxLineaRet := cTipo + "(" + hb_NtoS( Len( xVar ) ) + cRightParent + hb_Eol()
-            aKeys := hb_HKeys( xVar )
-            aValues := hb_HValues( xVar )
-            FOR i := 1 TO Len( aKeys )
-               cxLineaRet += Space( nInd ) + Str( i, 6 ) + cRightParent + " " + hb_ValToExp( aKeys[ i ] ) + cIgual + ;
-               iif( hb_IsHash( aValues[ i ] ), + "(H) " + hb_ValToExp( aValues[ i ] ), ShowValue( aValues[ i ], nInd ) ) + hb_Eol()
-            NEXT
-            cxLineaRet += cRightParent
-         ENDIF
+         cRet := cTipo + "(" + hb_NtoS( Len( xVar ) ) + ")"
+         aKeys := hb_HKeys( xVar )
+         aValues := hb_HValues( xVar )
+         FOR i := 1 TO Len( aKeys )
+            IF hb_IsHash( xVar[ aKeys[i] ] )
+               cRet += hb_Eol() + Space( nInd ) + Str( i, 6 ) + ") "
+               nInd += 2
+               cRet += ShowValue( xVar[ aKeys[i] ], nInd )
+               nInd -= 2
+
+            ELSE
+               cRet += hb_Eol() + Space( nInd ) + Str( i, 6 ) + ") " + hb_ValToExp( aKeys[ i ] ) + " " + ;
+               iif( hb_IsHash( aValues[ i ] ), + "(H) " + hb_ValToExp( aValues[ i ] ), ShowValue( aValues[ i ], nInd ) )
+
+            ENDIF
+         NEXT
          EXIT
 
       CASE "T"
-         cxLineaRet := cTipo + 't"' + hb_TSToStr( xVar, .T. ) + '"' // + cRightParent
+         cRet := cTipo + "(23) " + hb_TSToStr( xVar, .T. )
          EXIT
 
       CASE "U"
-         /// cxLineaRet := "(U) = Nil"
-         cxLineaRet := "(U)(0) Nil"
+         cRet := "(U) Nil"
          EXIT
 
       CASE "S"
-         cxLineaRet := cTipo
+         cRet := cTipo
          IF hb_IsString( xVar:name )
-            cxLineaRet += "@" + xVar:name + "()"
+            cRet += "@" + xVar:name + "()"
          ELSE
-            cxLineaRet += "@???()"
+            cRet += "@???()"
          ENDIF
-         cxLineaRet += cRightParent
+         cRet += ")"
          EXIT
 
       CASE "UE"
-         cxLineaRet := "(UE)"
+         cRet := "(UE)"
          EXIT
 
       OTHERWISE
-         cxLineaRet := "Value Type: " + cTipo + "No soportado por showValue()"
+         cRet := "Value Type: " + cTipo + "No soportado por showValue()"
 
    END SWITCH
 
-   RETURN cxLineaRet
+   RETURN cRet
 
 /*-----------------------------------*/
+
+FUNCTION CrearLog( cFile, cLinea )
+
+   LOCAL nHnd
+
+   IF hb_FileExists( cFile )
+      nHnd := FOpen( cFile, FO_READWRITE + FO_SHARED )
+      FSeek( nHnd, 0, FS_END)
+   ELSE
+      nHnd := FCreate( cFile, FC_NORMAL )
+   ENDIF
+
+   IF hb_IsString( cLinea )
+      FWrite( nHnd, cLinea + hb_Eol() )
+   ENDIF
+
+   FClose( nHnd )
+
+   RETURN nHnd
+
+/*-----------------------------------*/
+
+FUNCTION VerValor( param )
+
+   RETURN Qout( ShowValue( param ) )
+
+/*-----------------------------------*/
+
+
+
+
+#if 0
+
+
+
+
+
+/*-----------------------------------*/
+
+// VerValor( GitUser() ) // -> asistex  (asistex yahoo.com.ar)
+
+STATIC FUNCTION GitUser()
+
+   LOCAL cName := ""
+   LOCAL cEMail := ""
+
+   hb_processRun( Shell() + " " + "git config user.name",, @cName )
+   hb_processRun( Shell() + " " + "git config user.email",, @cEMail )
+
+   RETURN hb_StrFormat( "%s (%s)", ;
+          AllTrim( hb_StrReplace( cName, Chr( 10 ) + Chr( 13 ), "" ) ), ;
+          StrTran( AllTrim( hb_StrReplace( cEMail, Chr( 10 ) + Chr( 13 ), "" ) ), "@", " " ) )
+
+/*-----------------------------------*/
+
+STATIC FUNCTION Changes()
+
+   LOCAL cStdOut := ""
+
+   hb_processRun( Shell() + " git status -s",, @cStdOut )
+
+   RETURN hb_ATokens( StrTran( cStdOut, Chr( 13 ) ), Chr( 10 ) )
+
+/*-----------------------------------*/
+
+STATIC FUNCTION DoctorChanges( aChanges, aFiles )
+
+   LOCAL cLine
+   LOCAL cStart
+   LOCAL aNew := {}
+
+   LOCAL cFile
+   LOCAL tmp
+
+   ASort( aChanges,,, {| x, y | x < y } )
+
+      FOR EACH cLine IN aChanges
+         IF ! Empty( cLine ) .AND. SubStr( cLine, 3, 1 ) == " "
+            cStart := Left( cLine, 1 )
+            IF Empty( Left( cLine, 1 ) )
+               cStart := SubStr( cLine, 2, 1 )
+            ENDIF
+
+            SWITCH cStart
+               CASE " "
+               CASE "?"
+                  cStart := ""
+                  EXIT
+               CASE "M"
+               CASE "R"
+               CASE "T"
+               CASE "U"
+                  cStart := "*"
+                  EXIT
+               CASE "A"
+               CASE "C"
+                  cStart := "+"
+                  EXIT
+               CASE "D"
+                  cStart := "-"
+                  EXIT
+               OTHERWISE
+                  cStart := "?"
+            END SWITCH
+
+            IF ! Empty( cStart )
+               AAdd( aNew, "  " + cStart + " " + StrTran( SubStr( cLine, 3 + 1 ), "\", "/" ) )
+               IF !( cStart == "-" )
+                  cFile := SubStr( cLine, 3 + 1 )
+                  IF ( tmp := At( " -> ", cFile ) ) > 0
+                     cFile := SubStr( cFile, tmp + Len( " -> " ) )
+                  ENDIF
+                  AAdd( aFiles, cFile )
+               ENDIF
+            ENDIF
+         ENDIF
+      NEXT
+
+   RETURN aNew
+
+/*-----------------------------------*/
+
+STATIC FUNCTION Shell()
+
+   LOCAL cShell := GetEnv( "COMSPEC" )
+
+   IF ! Empty( cShell )
+      cShell += " /c"
+   ENDIF
+
+   RETURN cShell
+
+/*-----------------------------------*/
+
+
+
+
+#endif // if defined 0
+
+
+
+#if defined( changelog )
+#  indent + 2
+#  format =  * Changed, ! Fix, % Optimized, + Added up, - Removal of, ; Comment
+
+* agregado de funciones de Harbour commit.hb
+  + DoctorChanges()
+  + Shell()
+  + Changes()
+  + GitUser()
+
+
+#endif // if defined( changelog )
+
+
