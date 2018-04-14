@@ -9,6 +9,7 @@ obj/*/
 bin/*/
 *.zip
 *.7z
+*.rar
 *.dic
 git-0.hb
 git-1.hb
