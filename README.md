@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="usr/share/git/ReleaseNotes.css">
+</head>
+<body class="details">
+</body>
+</html>
+   
 # ighoo
 
 *IGHoo* is GUI lib written with harbour OOP syntax.
