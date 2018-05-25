@@ -1,10 +1,3 @@
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="usr/share/git/ReleaseNotes.css">
-</head>
-<body class="details">
-
 # ighoo
 
 *IGHoo* is GUI lib written with harbour OOP syntax.
@@ -18,8 +11,3 @@
 **https://github.com/asistex**
    
 ***`Carlos.  Asistex`***
-
-
-
-</body>
-</html>
