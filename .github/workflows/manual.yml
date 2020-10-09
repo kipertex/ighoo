@@ -24,7 +24,7 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        move test\*.* output\
+        move C:\test\*.* output\
 
     - name: Get current time
       uses: srfrnk/current-time@master
@@ -39,4 +39,3 @@ jobs:
       with:
        name: test_${{ env.TIME }}
        path: output
-
