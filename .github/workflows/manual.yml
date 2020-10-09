@@ -24,7 +24,8 @@ jobs:
       shell: cmd
       run: |
         mkdir test
-        
+        copy test\*.* test\
+
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
