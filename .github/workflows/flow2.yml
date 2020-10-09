@@ -31,7 +31,7 @@ jobs:
       shell: cmd
       run: |
         mkdir ewq
-        move /Y c:\test ewq
+        copy /Y c:\test ewq
 
     - name: Get current time
       uses: srfrnk/current-time@master
