@@ -23,8 +23,8 @@ jobs:
     - name: Create output folders
       shell: cmd
       run: |
-        mkdir test
-        copy test\*.* test\
+        mkdir output
+        move test\*.* output\
 
     - name: Get current time
       uses: srfrnk/current-time@master
@@ -39,3 +39,4 @@ jobs:
       with:
        name: test_${{ env.TIME }}
        path: output
+
