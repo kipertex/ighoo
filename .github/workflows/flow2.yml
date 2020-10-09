@@ -25,13 +25,14 @@ jobs:
       shell: cmd
       run: |
         dir c:\test
-        dir c:\test\tests
-  
+        
     - name: Create output folders
       shell: cmd
       run: |
-        mkdir ewq
-        copy /Y c:\test ewq
+        mkdir output
+        copy /Y c:\test output
+        mkdir output\tests
+        copy /Y c:\test\tests output\tests
 
     - name: Get current time
       uses: srfrnk/current-time@master
