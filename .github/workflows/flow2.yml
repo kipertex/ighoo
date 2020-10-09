@@ -24,8 +24,9 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        move /Y c:\test output
-      
+        copy c:\test output
+        :: move /Y c:\test output
+
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
