@@ -1,0 +1,40 @@
+name: test github
+
+on:
+    push:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:    
+    - name: Install dependencies
+      run: |
+        (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/harbour.github.io/raw/master/archive/hbcomm.zip', 'C:\temp\hbcomm.zip')
+        Expand-Archive -LiteralPath C:\temp\hbcomm.zip -DestinationPath C:\test -Force         
+         
+    - name: Compile Harbour
+      shell: cmd
+      run: |
+        dir C:\test
+        
+    - name: Create output folders
+      shell: cmd
+      run: |
+        mkdir test
+        
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Upload test to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+       name: test_${{ env.TIME }}
+       path: output
