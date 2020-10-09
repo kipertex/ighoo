@@ -25,6 +25,7 @@ jobs:
       run: |
         mkdir output
         move /Y c:\test output
+        dir output
 
     - name: Get current time
       uses: srfrnk/current-time@master
