@@ -1,0 +1,50 @@
+# This is a basic workflow that is manually triggered
+
+name: test github
+
+on:
+    push:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    if: github.actor == github.event.repository.owner.login
+    
+    steps:    
+    - name: Checkout ighoo repo
+      uses: actions/checkout@v2
+      with:
+       repository: asistex/ighoo
+       path: asistex/ighoo
+
+    - name: Install dependencies
+      run: |
+        (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/harbour.github.io/raw/master/archive/hbcomm.zip', 'C:\temp\hbcomm.zip')
+        Expand-Archive -LiteralPath c:\temp\hbcomm.zip -DestinationPath c:\test -Force         
+         
+    - name: Compile test
+      shell: cmd
+      run: |
+        dir c:\test
+        
+    - name: Create output folders
+      shell: cmd
+      run: |
+        mkdir output
+        mkdir output\ighoo
+        move /Y c:\test output\ighoo
+
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+ 
+    - name: Upload test to artifact
+      env:
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+       name: test_${{ env.TIME }}
+       path: output
