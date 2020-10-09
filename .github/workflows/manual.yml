@@ -10,6 +10,12 @@ jobs:
     if: github.actor == github.event.repository.owner.login
     
     steps:    
+    - name: Checkout ighoo repo
+      uses: actions/checkout@v2
+      with:
+       repository: asistex/ighoo
+       path: asistex/ighoo
+
     - name: Install dependencies
       run: |
         (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/harbour.github.io/raw/master/archive/hbcomm.zip', 'C:\temp\hbcomm.zip')
@@ -24,8 +30,9 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        move /Y c:\test output
-      
+        mkdir output\ighoo
+        move /Y c:\test output\ighoo
+
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
@@ -39,5 +46,5 @@ jobs:
       with:
        name: test_${{ env.TIME }}
        path: output
-       
+
        
