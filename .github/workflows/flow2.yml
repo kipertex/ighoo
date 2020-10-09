@@ -25,7 +25,8 @@ jobs:
       shell: cmd
       run: |
         dir c:\test
-        
+        dir c:\test\tests
+  
     - name: Create output folders
       shell: cmd
       run: |
