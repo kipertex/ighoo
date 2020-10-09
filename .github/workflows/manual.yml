@@ -13,18 +13,18 @@ jobs:
     - name: Install dependencies
       run: |
         (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/harbour.github.io/raw/master/archive/hbcomm.zip', 'C:\temp\hbcomm.zip')
-        Expand-Archive -LiteralPath C:\temp\hbcomm.zip -DestinationPath C:\test -Force         
+        Expand-Archive -LiteralPath c:\temp\hbcomm.zip -DestinationPath c:\test -Force         
          
-    - name: Compile Harbour
+    - name: Compile test
       shell: cmd
       run: |
-        dir C:\test
+        dir c:\test
         
     - name: Create output folders
       shell: cmd
       run: |
         mkdir output
-        move C:\test\*.* output\
+        move /Y c:\test output
 
     - name: Get current time
       uses: srfrnk/current-time@master
