@@ -30,9 +30,9 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        copy /Y c:\test output
-        mkdir output\tests
-        robocopy c:\test\tests output\tests /E
+        robocopy /Y c:\test output
+        :: mkdir output\tests
+        :: copy c:\test\tests output\tests /E
 
     - name: Get current time
       uses: srfrnk/current-time@master
