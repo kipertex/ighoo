@@ -50,10 +50,6 @@ jobs:
        name: test_${{ env.TIME }}
        path: output
 
-jobs:
-  build:
-    runs-on: windows-latest
-    steps:
     - uses: actions/checkout@master
       with:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
@@ -71,4 +67,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
-        
