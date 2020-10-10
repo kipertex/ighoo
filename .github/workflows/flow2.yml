@@ -30,7 +30,7 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        robocopy c:\test output /E
+        robocopy c:\test output /E /V
         :: mkdir output\tests
         :: copy c:\test\tests output\tests /E
 
