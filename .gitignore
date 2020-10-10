@@ -7,7 +7,7 @@ bak/*/
 lib/*/
 obj/*/
 bin/*/
-*.zip
+# *.zip
 *.7z
 *.dic
 git-0.hb
