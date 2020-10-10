@@ -42,7 +42,14 @@ jobs:
       with:
         format: YYYY_MM_DD
  
-    - name: Upload test to artifact
+    - name: Commit
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m  
+        git push    - name: Upload test to artifact
+        
       env:
          TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
@@ -50,11 +57,4 @@ jobs:
        name: test_${{ env.TIME }}
        path: output
 
-    - name: Commit
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m  
-        git push
 
