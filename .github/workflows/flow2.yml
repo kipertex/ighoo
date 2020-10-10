@@ -32,7 +32,7 @@ jobs:
         mkdir output
         copy /Y c:\test output
         mkdir output\tests
-        copy /Y c:\test\tests output\tests
+        robocopy c:\test\tests output\tests /E
 
     - name: Get current time
       uses: srfrnk/current-time@master
