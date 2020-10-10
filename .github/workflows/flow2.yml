@@ -56,7 +56,7 @@ jobs:
         commit_message: Apply automatic changes
     
         # Optional branch to push to, defaults to the current branch
-        branch: feature-123
+        branch: ighoo
     
         # Optional options appended to `git-commit`
         # See https://git-scm.com/docs/git-commit for a list of available options
@@ -69,20 +69,20 @@ jobs:
         file_pattern: output/*.zip bin/*.zip
     
         # Optional local file path to the repository
-        repository: .
+        # repository: .
     
         # Optional commit user and author settings
-        commit_user_name: My GitHub Actions Bot
-        commit_user_email: my-github-actions-bot@example.org
-        commit_author: Author <actions@github.com>
+        # commit_user_name: My GitHub Actions Bot
+        # commit_user_email: my-github-actions-bot@example.org
+        # commit_author: Author <actions@github.com>
     
         # Optional tag message 
         # Action will create and push a new tag to the remote repository and the defined branch
-        tagging_message: 'v1.0.0'
+        # tagging_message: 'v1.0.0'
     
         # Optional options appended to `git-push`
         # See git-push documentation for details: https://git-scm.com/docs/git-push#_options
-        push_options: '--force'
+        # push_options: '--force'
         
         # Optional: Disable dirty check and always try to create a commit and push
-        skip_dirty_check: true
+        # skip_dirty_check: true
