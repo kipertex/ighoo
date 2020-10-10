@@ -31,6 +31,8 @@ jobs:
       run: |
         mkdir output
         robocopy c:\test output /E /V /X /FP
+        set ERRORLEVEL=0
+
         :: mkdir output\tests
         :: copy c:\test\tests output\tests /E
 
