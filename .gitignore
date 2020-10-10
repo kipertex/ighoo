@@ -8,7 +8,7 @@ lib/*/
 obj/*/
 bin/*/
 *.zip
-# *.7z
+*.7z
 *.dic
 git-0.hb
 git-1.hb

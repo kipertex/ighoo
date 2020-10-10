@@ -18,8 +18,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/harbour.github.io/raw/master/archive/hbcomm.zip', 'C:\temp\hbcomm.zip')
-        Expand-Archive -LiteralPath c:\temp\hbcomm.zip -DestinationPath c:\test -Force         
+        (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/ighoo/raw/master/bin/test.7z', 'C:\temp\test.7z')
+        Expand-Archive -LiteralPath c:\temp\test.7z -DestinationPath c:\test -Force         
          
     - name: Compile test
       shell: cmd
