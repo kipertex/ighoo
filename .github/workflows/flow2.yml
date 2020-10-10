@@ -50,6 +50,8 @@ jobs:
        name: test_${{ env.TIME }}
        path: output
 
+    - name: Commit
+      shell: cmd
       - run: |
           date > generated.txt
           git config user.name github-actions
