@@ -50,39 +50,25 @@ jobs:
        name: test_${{ env.TIME }}
        path: output
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
       with:
-        # Required
-        commit_message: Apply automatic changes
-    
-        # Optional branch to push to, defaults to the current branch
-        branch: ighoo
-    
-        # Optional options appended to `git-commit`
-        # See https://git-scm.com/docs/git-commit for a list of available options
-        commit_options: '--no-verify --signoff'
-    
-        # Optional glob pattern of files which should be added to the commit
-        # See the `pathspec`-documentation for git
-        # - https://git-scm.com/docs/git-add#Documentation/git-add.txt-ltpathspecgt82308203
-        # - https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefpathspecapathspec
-        file_pattern: output/*.zip bin/*.zip
-    
-        # Optional local file path to the repository
-        # repository: .
-    
-        # Optional commit user and author settings
-        commit_user_name: My GitHub Actions Bot
-        commit_user_email: my-github-actions-bot@example.org
-        commit_author: Author <actions@github.com>
-    
-        # Optional tag message 
-        # Action will create and push a new tag to the remote repository and the defined branch
-        tagging_message: 'v1.0.0'
-    
-        # Optional options appended to `git-push`
-        # See git-push documentation for details: https://git-scm.com/docs/git-push#_options
-        push_options: '--force'
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+    - name: Create local changes
+      run: |
+        ...
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
         
-        # Optional: Disable dirty check and always try to create a commit and push
-        skip_dirty_check: true
