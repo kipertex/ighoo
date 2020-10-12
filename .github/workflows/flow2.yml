@@ -28,6 +28,8 @@ jobs:
       shell: cmd
       run: |
         cd harbour
+        set HB_HOST_PLAT=win (x86)  HB_SHELL: nt
+        set HB_PLATFORM=win (x86)
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_PARTS=all
