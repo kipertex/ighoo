@@ -20,7 +20,7 @@ jobs:
       run: |
         (new-object System.Net.WebClient).DownloadFile('https://github.com/brechtsanders/winlibs_mingw/releases/download/10.2.0-10.0.1-9.0.0-r1/winlibs-i686-posix-dwarf-gcc-10.2.0-mingw-w64-8.0.0-r1.zip', 'C:\temp\mingw32.zip')
         Expand-Archive -LiteralPath C:\temp\mingw32.zip -DestinationPath C:\mingw32\mingw32 -Force         
-        choco install openssl
+#        choco install openssl
         choco install curl
         (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/acesdk.zip', 'C:\temp\acesdk.zip')
         Expand-Archive -LiteralPath C:\temp\acesdk.zip -DestinationPath C:\acesdk -Force         
@@ -33,16 +33,16 @@ jobs:
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_PARTS=all
         set HB_BUILD_CONTRIBS= 
-        set HB_WITH_OPENSSL=C:\OpenSSL\include
+        :: set HB_WITH_OPENSSL=C:\OpenSSL\include
         set HB_WITH_CURL=C:\curl\include
         set HB_WITH_ADS=C:\acesdk 
-        set HB_STATIC_OPENSSL=yes
+        :: set HB_STATIC_OPENSSL=yes
         set HB_STATIC_CURL=yes       
         set HB_COMPILER=mingw
         set HB_BUILD_CONTRIB_DYN=no
         set HB_BUILD_DYN=no
         set HB_WITH_LIBHARU=c:\harbour\contrib\hbhpdf
-        set path=c:\mingw32\mingw32\bin;c:\program Files\OpenSSL-Win64\bin;%path%
+        :: set path=c:\mingw32\mingw32\bin;c:\program Files\OpenSSL-Win64\bin;%path%
         win-make.exe
         
     - name: Create output folders
