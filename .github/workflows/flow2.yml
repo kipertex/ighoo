@@ -25,7 +25,7 @@ jobs:
       shell: cmd
       run: |
         cd harbour
-        set HB_PLATFORM=win
+        :: set HB_PLATFORM=win
         set HB_BUILD_MODE=c
         set HB_USER_PRGFLAGS=-l-
         set HB_BUILD_PARTS=all
