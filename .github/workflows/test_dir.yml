@@ -10,7 +10,7 @@ jobs:
     if: github.actor == github.event.repository.owner.login
     
     steps:    
-    - name: Checkout hmg repo
+    - name: Checkout asistex repo
       uses: actions/checkout@v2
       with:
        repository: asistex/HMG
@@ -27,16 +27,9 @@ jobs:
     - name: Building lib HMG
       shell: cmd
       run: |
+        dir c:\ /s
         cd asistex\hmg
         set path=c:\mingw32\mingw32\bin;c:\harbour\bin;%path%
-        BuildAllLib32.bat
-
-    - name: Create output folders...
-      shell: cmd
-      run: |
-        mkdir output
-        robocopy asistex\hmg\ output\ /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
     - name: Get current time
       uses: srfrnk/current-time@master
