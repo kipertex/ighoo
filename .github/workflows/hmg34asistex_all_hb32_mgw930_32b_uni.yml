@@ -62,8 +62,8 @@ jobs:
         robocopy asistex\hmg\workflows output\workflows /E
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
-        copy asistex\hmg\*.* output\ /E
-
+        copy asistex\hmg\*.* output\  
+ 
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
