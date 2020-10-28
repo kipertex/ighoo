@@ -35,7 +35,6 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        mkdir output\lib
         :: mkdir output\include
         dir output
         robocopy asistex\hmg\lib\ output\ /E
