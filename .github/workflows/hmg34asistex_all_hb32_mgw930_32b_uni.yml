@@ -35,25 +35,23 @@ jobs:
       shell: cmd
       run: |
         mkdir output
-        robocopy asistex\hmg\doc output\doc /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-
-        robocopy asistex\hmg\include output\include /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-
-        robocopy asistex\hmg\include output\include /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-
-        robocopy asistex\hmg\hfsl output\hfsl /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
         robocopy asistex\hmg\source output\source /E
+        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+
+        robocopy asistex\hmg\lib output\lib /E
+        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+
+        robocopy asistex\hmg\include output\include /E
+        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+
+        robocopy asistex\hmg\doc output\doc /E
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
         robocopy asistex\hmg\samples output\samples /E
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
-        robocopy asistex\hmg\lib output\lib /E
+        robocopy asistex\hmg\hfsl output\hfsl /E
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
         robocopy asistex\hmg\resources output\resources /E
@@ -64,6 +62,9 @@ jobs:
 
         copy asistex\hmg\*.* output\  
  
+        :: robocopy asistex\hmg\harbour output\harbour /E
+        :: if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
