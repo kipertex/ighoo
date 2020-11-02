@@ -1,0 +1,62 @@
+[33mcommit c2865a8a20d7604fc2a1b0b4381211e7dc8bdc0d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 64568ff 8cfba0c
+Author: asistex Carlos <asistex@yahoo.com.ar>
+Date:   Mon Nov 2 08:55:28 2020 -0300
+
+    Merge pull request #15 from asistex/brn1
+    
+    Brn1 2
+
+[33mcommit 8cfba0c57490a4d94d49a8e16e164e76031e7029[m
+Author: asistex Carlos <asistex@yahoo.com.ar>
+Date:   Mon Nov 2 08:47:26 2020 -0300
+
+    Update Contributing.md
+
+[1mdiff --git a/Contributing.md b/Contributing.md[m
+[1mindex 870d3b0..852311c 100644[m
+[1m--- a/Contributing.md[m
+[1m+++ b/Contributing.md[m
+[36m@@ -7,3 +7,4 @@[m [masi[m
+ 777[m
+ 888[m
+ 999[m
+[32m+[m[32m000[m
+
+[33mcommit 9f1cff30ef65c9365e2ba89efb59b0ef891e4124[m
+Author: asistex Carlos <asistex@yahoo.com.ar>
+Date:   Mon Nov 2 08:43:34 2020 -0300
+
+    Update Contributing.md
+
+[1mdiff --git a/Contributing.md b/Contributing.md[m
+[1mindex 8a26f8c..870d3b0 100644[m
+[1m--- a/Contributing.md[m
+[1m+++ b/Contributing.md[m
+[36m@@ -6,3 +6,4 @@[m [masi[m
+ 666[m
+ 777[m
+ 888[m
+[32m+[m[32m999[m
+
+[33mcommit f8b2e3596cc9f7805c458397255fcbb65c6ef986[m
+Author: asistex Carlos <asistex@yahoo.com.ar>
+Date:   Mon Nov 2 08:42:54 2020 -0300
+
+    Update changelog.txt
+
+[1mdiff --git a/changelog.txt b/changelog.txt[m
+[1mindex ba4662a..fd45722 100644[m
+[1m--- a/changelog.txt[m
+[1m+++ b/changelog.txt[m
+[36m@@ -1 +1,3 @@[m
+ upd[m
+[32m+[m[32m222[m[41m[m
+[32m+[m[32m333[m[41m[m
+
+[33mcommit 64568ff47de450be1a390b0472d35583519124bd[m
+Merge: 5e21ff1 fc5cb5e
+Author: asistex <asistex@yahoo.com.ar>
+Date:   Sun Nov 1 13:33:04 2020 -0300
+
+    Merge branch 'master' of https://github.com/asistex/ighoo
