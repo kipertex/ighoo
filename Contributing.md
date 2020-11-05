@@ -4,16 +4,17 @@
 
 Bug reports are appreciated. Read [**`Issues - Bug Reports`**](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) for a few guidelines listed will help speed up the process of getting them fixed.
 
-1- Go to Tab Issue
-2- click on [New Issue](https://github.com/asistex/ighoo/issues/new/choose)
+### 1- Go to **Tab Issue -> New Issue**
 
 [![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/btn_issue.jpg)](https://github.com/asistex/ighoo/issues/new/choose)
 
-3- click on [Start](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
+
+### 2- click on **Start**
 
 [![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/Start.jpg)](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
-4- fill form [Fill form](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
+
+### 3- **Fill form**
 
 [![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/fill.jpg)](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
