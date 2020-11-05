@@ -1,8 +1,21 @@
 # Contributing
 
-## Reporting Issues
+## Reporting Issues or Bug Reports
 
-Bug reports are appreciated. Read [**`issue_template.md`**](https://github.com/asistex/ighoo/blob/master/issue_template.md) for a few guidelines listed will help speed up the process of getting them fixed.
+Bug reports are appreciated. Read [**`Issues - Bug Reports`**](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) for a few guidelines listed will help speed up the process of getting them fixed.
+
+1- Go to Tab Issue
+2- click on [New Issue](https://github.com/asistex/ighoo/issues/new/choose)
+
+[![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/btn_issue.jpg)](https://github.com/asistex/ighoo/issues/new/choose)
+
+3- click on [Start](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
+
+[![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/Start.jpg)](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
+
+4- fill form [Fill form](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
+
+[![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/fill.jpg)](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
 
 ## Pull Requests
