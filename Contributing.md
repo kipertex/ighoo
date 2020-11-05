@@ -1,9 +1,13 @@
 # Contributing
 
-## Reporting Issues
+## Reporting Issues or Bug Reports
 
-Bug reports are appreciated. Read [**`issue_template.md`**](https://github.com/asistex/ighoo/blob/master/issue_template.md) for a few guidelines listed will help speed up the process of getting them fixed.
+Bug reports are appreciated. Read [**`Issues - Bug Reports`**](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) for a few guidelines listed will help speed up the process of getting them fixed.
 
+1- Go to Tab Issue
+2- click on [New Issue]()
+3- click on [Start]()
+4- fill form
 
 ## Pull Requests
 
