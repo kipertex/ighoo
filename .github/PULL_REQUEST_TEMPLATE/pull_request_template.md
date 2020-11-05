@@ -4,17 +4,10 @@
 <!--- Intenta seguirlo cuando sea posible. -->
 
 
-### Description of the Issue -- Descripción de la cuestión
-<!--- Provide a more detailed description to the issue itself -->
-<!--- Proporcionar una descripción más detallada de la cuestión en sí misma -->
+### Description of the Pull Request (PR) -- Descripción del Pull Request (PR)
+<!--- Provide a more detailed description to the Pull Request (PR) -->
+<!--- Proporcionar una descripción más detallada del Pull Request (PR) -->
 
-
-### Steps to Reproduce the Issue -- Pasos para reproducir la cuestión
-<!--- Set of steps to reproduce this issue -->
-<!--- Conjunto de pasos para reproducir este tema -->
-1.
-2.
-3.
 
 ### Expected Behavior -- Comportamiento esperado
 <!--- What did you expect to happen -->
@@ -26,10 +19,11 @@
 <!--- Lo que realmente pasó -->
 
 
-### Debug Information -- Informacion de depuracion
-<!--- Do a PASTE HERE -->
-<!--- Haga un Pegado AQUI -->
+### What was added, removed, changed -- Que fue agregado, removido, cambiado
+<!--- * Changed  ! Fixed  % Optimized  + Added  - Removed  ; Comment -->
+<!--- * Cambiado  ! Reparado  % Optimizado  + Agregado  - Removido  ; Comentario -->
+
 
 
 <!--- Feel free to include any other info, such as screenshots, etc -->
-<!--- Siéntase libre de incluir cualquier otra información, como capturas de pantalla, etc...
+<!--- Siéntase libre de incluir cualquier otra información, capturas de pantalla, etc -->
