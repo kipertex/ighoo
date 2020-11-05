@@ -15,6 +15,7 @@ git-1.hb
 git-2.hb
 *.lst
 *.log
+log.md
 
 # installed binaries
 *.exe
