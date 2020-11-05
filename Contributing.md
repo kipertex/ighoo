@@ -29,28 +29,15 @@ In short: The easier the code review is, the better the chance your pull request
 
 #### GENERAL
 
-1. ##### Do not use Java-like braces.
+1. ##### Use the following indenting for statements. 3 spaces, NO tabs:
 
   * ###### Good:
     ```
-    IF someCondition == .T.
-       DoSomething()
-    ENDIF
-    ```
-
-  * ###### Bad:
-    ```
-    if someCondition == 37
-    // Do something
-    Endif
-    ```
-
-2. ##### Use the following indenting for statements . 3 spaces, NO tabs:
-
-  ```
     SWITCH cnExp
        CASE condition
-          // code
+          IF someCondition == .T.
+             DoSomething()
+          ENDIF
           Exit
 
        CASE condition
@@ -61,9 +48,24 @@ In short: The easier the code review is, the better the chance your pull request
           // code
 
     END SWITCH
-  ```
+    ```
 
-3. ##### Avoid magic numbers.
+  * ###### Bad:
+    ```
+    SWITCH cnExp
+    CASE condition
+    if someCondition == 37
+    Do something
+    Endif
+    CASE condition
+    // code
+    Exit
+    OTHERWISE
+    // code
+    END SWITCH    ```
+    ```
+
+2. ##### Avoid magic numbers.
 
   * ###### Good:
     ```
@@ -110,7 +112,7 @@ In short: The easier the code review is, the better the chance your pull request
 
 #### COMMENTS
 
-1. ##### Use C++ comment line style than C comment style.
+1. ##### Use comment line style.
 
   * ###### Good:
     ```
@@ -120,7 +122,7 @@ In short: The easier the code review is, the better the chance your pull request
 
   * ###### Bad:
     ```
-    * Please don't piss me off with that *
+    * Please don't piss me off with that asterisk
     ```
 
 2. #### Multilines comments
