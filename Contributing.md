@@ -2,7 +2,8 @@
 
 ## Reporting Issues or Bug Reports
 
-Bug reports are appreciated. Read [**`Issues - Bug Reports`**](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/bug_report.md) for a few guidelines listed will help speed up the process of getting them fixed.
+Bug reports are appreciated. Read [**`Issues - Bug Reports`**](https://github.com/asistex/ighoo/blob/master/.github/DOCS/pullreq_1.md) for a few guidelines listed will help speed up the process of getting them fixed.
+
 
 ---
 ### [1- Go to **Tab Issue -> New Issue**](https://github.com/asistex/ighoo/issues/new/choose)
@@ -10,12 +11,12 @@ Bug reports are appreciated. Read [**`Issues - Bug Reports`**](https://github.co
 [![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/btn_issue.jpg)](https://github.com/asistex/ighoo/issues/new/choose)
 
 ---
-### [2- click on **Get Started**]()
+### [2- click on **Get Started**](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
 [![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/Start.jpg)](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
 ---
-### 3- **Fill form**
+### [3- **Fill form**](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
 [![image](https://github.com/asistex/ighoo/blob/master/.github/ISSUE_TEMPLATE/fill.jpg)](https://github.com/asistex/ighoo/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
