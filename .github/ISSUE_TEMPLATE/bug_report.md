@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug report - Issues
 about: Create a report to help us improve
 title: ''
 labels: ''
@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-## **Describe the bug**
-A clear and concise description of what the bug is.
+## **Describe the bug or Issue**
+A clear and concise description of what the issue or bug is.
 
 ## **To Reproduce**
 Steps to reproduce the behavior:
