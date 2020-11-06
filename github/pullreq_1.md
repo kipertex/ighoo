@@ -1,9 +1,5 @@
-# Contributing
-
-## Reporting Issues or Bug Reports
-
-Bug reports are appreciated. Read [**`Issues - Bug Reports`**](https://github.com/asistex/ighoo/blob/master/.github/DOCS/pullreq_1.md) for a few guidelines listed will help speed up the process of getting them fixed.
-
+# Pull Requests 
+## Your Repo is ahead to Master
 
 ---
 ### [1- Go to **Tab Issue -> New Issue**](https://github.com/asistex/ighoo/issues/new/choose)
@@ -42,110 +38,10 @@ Opening a issue beforehand allows the administrators and the community to discus
 
 In short: The easier the code review is, the better the chance your pull request will get accepted.
 
-
-### Coding style
-
-#### GENERAL
-
-1. ##### Use the following indenting for statements. 3 spaces, NO tabs:
-
-  * ###### Good:
-    ```
-    SWITCH cnExp
-       CASE condition
-          IF someCondition == .T.
-             DoSomething()
-          ENDIF
-          Exit
-
-       CASE condition
-          // code
-          Exit
-
-       OTHERWISE
-          // code
-
-    END SWITCH
-    ```
-
-  * ###### Bad:
-    ```
-    SWITCH cnExp
-    CASE condition
-    if someCondition == 37
-    Do something
-    Endif
-    CASE condition
-    // code
-    Exit
-    OTHERWISE
-    // code
-    END SWITCH    ```
-    ```
-
-2. ##### Avoid magic numbers.
-
-  * ###### Good:
-    ```
-    if (foo < I_CAN_PUSH_ON_THE_RED_BUTTON)
-        startThermoNuclearWar();
-    ```
-
-  * ###### Bad:
-    ```
-    while (lifeTheUniverseAndEverything != 42)
-        lifeTheUniverseAndEverything = buildMorePowerfulComputerForTheAnswer();
-    ```
+## Your Master is ahead to your Repo
 
 
 
-#### NAMING CONVENTIONS
-
-1. ##### Functions, Classes Methods & method parameters use camel Case
-
-  * ###### Good:
-    ```
-    hb_aDel( aArray, nPos, .F. )
-    ```
-
-  * ###### Bad:
-    ```
-    hb_adel( aarray, POS, .f. )
-    HB_AINS( array, Pos, Value, .t. )
-    ```
-
-2. ##### Always prefer a variable name that describes what the variable is used for.
-
-  * ###### Good:
-    ```
-    IF ( nHours < 24 .And. nMinutes < 60 .And. nSeconds < 60)
-    ```
-
-  * ###### Bad:
-    ```
-    if (a < 24 .And. b < 60 .And. c < 60)
-    ```
 
 
 
-#### COMMENTS
-
-1. ##### Use comment line style.
-
-  * ###### Good:
-    ```
-    // Two lines comment
-    // Use still C++ comment line style
-    ```
-
-  * ###### Bad:
-    ```
-    * Please don't piss me off with that asterisk
-    ```
-
-2. #### Multilines comments
-
-   /*
-    * comments
-    * multilines
-    */
