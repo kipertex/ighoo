@@ -1,0 +1,41 @@
+name: asistexighoo
+
+on:
+  push:
+    branches:
+      ::set-env name={BRANCH_NAME}::{b20201112}
+      - ${BRANCH_NAME}
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    if: github.actor == github.event.repository.owner.login
+
+    steps:
+    - name: Checkout HMG-Official repo
+      uses: actions/checkout@v2
+      with:
+       repository: asistex/ighoo
+       path: asistex/ighoo
+ 
+    - name: Create output folders...
+      shell: cmd
+      run: |
+        echo ${BRANCH_NAME}
+        mkdir output
+        dir *.yml > yml.txt
+        copy yml.txt output
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+
+    - name: Create artifact
+      env:
+        TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+        name: hmg34_${BRANCH_NAME}_all_${{ env.TIME }}
+        path: output
