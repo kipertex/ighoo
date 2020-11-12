@@ -1,7 +1,10 @@
 name: asistexighoo
 
 on:
-    push:
+  push:
+    branches:
+      ::set-env name={BRANCH_NAME}::{b20201112}
+      - ${BRANCH_NAME}
 
 jobs:
   build:
