@@ -1,4 +1,15 @@
-name: HMG official 32bit MinGW 930 unicode
+# to set it as an en variable, I use this syntax:
+#
+# - name: Extract branch name
+#   shell: bash
+#   run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+# - name: Test
+#   run: echo "${BRANCH_NAME}"
+#  I found this syntax here: Github actions - starter worflows#How to define env variable? #68
+#
+#  the sed 's/\//_/g' is to replace / by _ in the branch name
+
+name: asistexighoo
 
 on:
     push:
