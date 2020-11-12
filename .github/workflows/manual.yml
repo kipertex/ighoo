@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
       - name: Test
-        run: echo "${BRANCH_NAME}"
+        run: echo ${BRANCH_NAME}
 
 
     - name: Checkout asistex repo
