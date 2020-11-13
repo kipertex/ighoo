@@ -16,7 +16,7 @@ on:
   push:
     branches:
       ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
-      - ${BRANCH_NAME}
+      - ${{BRANCH_NAME}}
 
 jobs:
   build:
@@ -34,10 +34,12 @@ jobs:
     - name: Create output folders...
       shell: cmd
       run: |
+        echo  ${{ github.event.inputs.name }}
         echo ${BRANCH_NAME}
         mkdir output
         dir *.yml > yml.txt
         copy yml.txt output
+
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
@@ -49,5 +51,5 @@ jobs:
         TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
       with:
-        name: hmg34_${BRANCH_NAME}_all_${{ env.TIME }}
+        name: hmg34_${{BRANCH_NAME}}_all_${{ env.TIME }}
         path: output
