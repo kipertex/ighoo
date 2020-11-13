@@ -127,7 +127,6 @@ In short: The easier the code review is, the better the chance your pull request
     ```
 
 
-
 #### COMMENTS
 
 1. ##### Use comment line style.
