@@ -15,8 +15,10 @@ name: asistexighoo
 on:
   push:
     branches:
-      ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
-      - ${{BRANCH_NAME}}
+      - b201113
+      
+#      ::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+#      - ${{BRANCH_NAME}}
 
 jobs:
   build:
