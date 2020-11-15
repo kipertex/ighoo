@@ -1,40 +1,86 @@
-# This is a basic workflow to help you get started with Actions
+name: HMG official all libs 32bit MinGW 930 unicode
 
-name: xt
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
-  push:
-    branches: [ b201113 ]
-  pull_request:
-    branches: [ master ]
+    push:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: windows-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    if: github.actor == github.event.repository.owner.login
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    - name: Checkout HMG-Official repo
+      uses: actions/checkout@v2
+      with:
+       repository: HMG-Official/HMG
+       path: HMG-Official/HMG
 
-      - name: Extract branch name
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+    - name: Install dependencies
+      run: |
+        (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/mingw32.zip', 'C:\temp\mingw32.zip')
+        Expand-Archive -LiteralPath C:\temp\mingw32.zip -DestinationPath C:\mingw32 -Force
+        (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/HMG/raw/master/workflows/hb32_mgw930_32b_2020_10_27.zip', 'C:\temp\harbour.zip')
+        Expand-Archive -LiteralPath C:\temp\harbour.zip -DestinationPath C:\harbour -Force
+        gcc --version
 
-      - name: Test branch name
-        run: echo ${{BRANCH_NAME}}
+    - name: Building lib HMG
+      shell: cmd
+      run: |
+        cd HMG-Official\hmg
+        set path=c:\mingw32\mingw32\bin;c:\harbour\bin;%path%
+        BuildAllLib32.bat
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    - name: Create output folders...
+      shell: cmd
+      run: |
+        mkdir output
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo  ${{ github.event.inputs.name }}
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        mkdir output\harbour\bin
+        mkdir output\harbour\contrib
+        mkdir output\harbour\doc
+        mkdir output\harbour\include
+        mkdir output\harbour\lib
+
+        move HMG-Official\harbour\bin\*.* output\harbour\bin
+        move HMG-Official\harbour\contrib\*.* output\harbour\contrib
+        move HMG-Official\harbour\doc\*.* output\harbour\doc
+        move HMG-Official\harbour\include\*.* output\harbour\include
+        move HMG-Official\harbour\lib\*.* output\harbour\lib
+
+        mkdir output\source
+        mkdir output\include
+        mkdir output\lib
+        mkdir output\contrib
+        mkdir output\doc
+        mkdir output\samples
+        mkdir output\resources
+        mkdir output\hfsl
+        mkdir output\lib
+
+        move HMG-Official\source\*.* output\source
+        move HMG-Official\include\*.* output\include
+        move HMG-Official\lib\*.* output\lib
+        move HMG-Official\contrib\*.* output\contrib
+        move HMG-Official\doc\*.* output\doc
+        move HMG-Official\samples\*.* output\samples
+        move HMG-Official\resources\*.* output\resources
+        move HMG-Official\hfsl\*.* output\hfsl
+        move HMG-Official\lib\*.* output\lib
+
+        copy HMG-Official\hmg\*.* output\
+
+    - name: Get current time
+      uses: srfrnk/current-time@master
+      id: current-time
+      with:
+        format: YYYY_MM_DD
+
+    - name: Create artifact
+      env:
+        TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      uses: actions/upload-artifact@v2
+      with:
+        name: hmgoffi_all_hb32_mgw930_uni_32b_${{ env.TIME }}
+        path: output
+
