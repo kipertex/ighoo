@@ -49,13 +49,11 @@ jobs:
         mkdir output\doc
         mkdir output\samples
         mkdir output\resources
-        mkdir output\hfsl
+        mkdir output\hfcl
         echo %ERRORLEVEL%
 
         :: dir output\*.*
-        dir HMG-Official\hmg\*.*
-        dir HMG-Official\lib\*.* > output\lib\dir.txt
-        dir HMG-Official\hfsl\*.* > output\hfsl\dir.txt
+        :: dir HMG-Official\hmg\*.*
 
         move HMG-Official\hmg\source\*.* output\source
         echo %ERRORLEVEL%
@@ -69,7 +67,7 @@ jobs:
         echo %ERRORLEVEL%
         move HMG-Official\hmg\resources\*.* output\resources
         echo %ERRORLEVEL%
-        move HMG-Official\hmg\hfsl\*.* output\hfsl
+        move HMG-Official\hmg\hfcl\*.* output\hfcl
         echo %ERRORLEVEL%
 
         copy HMG-Official\hmg\*.* output\
