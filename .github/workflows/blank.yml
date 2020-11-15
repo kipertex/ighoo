@@ -57,11 +57,6 @@ jobs:
         echo %ERRORLEVEL%
         echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
 
-        robocopy harbour\lib\*.* output\lib\win\mingw
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo copying harbour libs ErrorLevel = %ERRORLEVEL%
-
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
