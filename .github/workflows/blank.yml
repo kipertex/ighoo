@@ -10,11 +10,11 @@ jobs:
     if: github.actor == github.event.repository.owner.login
 
     steps:
-    - name: Checkout HMG-Official repo
+    - name: Checkout asistex repo
       uses: actions/checkout@v2
       with:
-       repository: HMG-Official/HMG
-       path: HMG-Official/HMG
+       repository: asistex/HMG
+       path: asistex/HMG
 
     - name: Install dependencies
       run: |
@@ -28,20 +28,20 @@ jobs:
     - name: Building lib HMG
       shell: cmd
       run: |
-        cd HMG-Official\hmg
+        cd asistex\hmg
         set path=c:\mingw32\mingw32\bin;c:\harbour\bin;%path%
-        :: BuildAllLib32.bat
-        echo %ERRORLEVEL%
+        BuildAllLib32.bat
+        echo creating hmg libraries ErrorLevel = %ERRORLEVEL%
 
     - name: Create output folders...
       shell: cmd
       run: |
         mkdir output
 
-        :: mkdir output\harbour
-        :: robocopy c:\harbour output\harbour /E
-        :: if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        :: echo %ERRORLEVEL%
+        robocopy c:\harbour output\harbour /E
+        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+        echo %ERRORLEVEL%
+        echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
 
         mkdir output\source
         mkdir output\include
@@ -50,27 +50,24 @@ jobs:
         mkdir output\samples
         mkdir output\resources
         mkdir output\hfcl
-        echo %ERRORLEVEL%
+        echo creating output folders ErrorLevel = %ERRORLEVEL%
 
-        :: dir output\*.*
-        :: dir HMG-Official\hmg\*.*
+        move asistex\hmg\source\*.* output\source
+        echo creating output\source ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\include\*.* output\include
+        echo creating output\include ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\lib\*.* output\lib
+        echo creating output\lib ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\doc\*.* output\doc
+        echo creating output\doc ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\samples\*.* output\samples
+        echo creating output\samples ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\resources\*.* output\resources
+        echo creating output\resources ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\hfcl\*.* output\hfcl
+        echo creating output\hfcl ErrorLevel = %ERRORLEVEL%
 
-        move HMG-Official\hmg\source\*.* output\source
-        echo %ERRORLEVEL%
-        move HMG-Official\hmg\include\*.* output\include
-        echo %ERRORLEVEL%
-        move HMG-Official\hmg\lib\*.* output\lib
-        echo %ERRORLEVEL%
-        move HMG-Official\hmg\doc\*.* output\doc
-        echo %ERRORLEVEL%
-        move HMG-Official\hmg\samples\*.* output\samples
-        echo %ERRORLEVEL%
-        move HMG-Official\hmg\resources\*.* output\resources
-        echo %ERRORLEVEL%
-        move HMG-Official\hmg\hfcl\*.* output\hfcl
-        echo %ERRORLEVEL%
-
-        copy HMG-Official\hmg\*.* output\
+        copy asistex\hmg\*.* output\
 
     - name: Get current time
       uses: srfrnk/current-time@master
