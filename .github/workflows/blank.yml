@@ -1,7 +1,9 @@
 name: HMG official all libs 32bit MinGW 930 unicode
 
 on:
-    push:
+  push:
+    branches:
+      - 'master'
 
 jobs:
   build:
@@ -44,28 +46,98 @@ jobs:
         echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
 
         mkdir output\source
+        mkdir output\source\bostaurus
+        mkdir output\source\class
+        mkdir output\source\crypt
+        mkdir output\source\debugger
+        mkdir output\source\edit
+        mkdir output\source\editex
+        mkdir output\source\graph
+        mkdir output\source\hbvpdf
+        mkdir output\source\hmgsql
+        mkdir output\source\ini
+        mkdir output\source\report
         mkdir output\include
         mkdir output\lib
         mkdir output\doc
+        mkdir output\doc\assets
+        mkdir output\doc\bostaurus
+        mkdir output\doc\data
+        mkdir output\doc\debugger
+        mkdir output\doc\hmg hpdf
         mkdir output\samples
         mkdir output\resources
         mkdir output\hfcl
+        mkdir output\hfcl\source
+        mkdir output\hfcl\resource
+        mkdir output\hfcl\include
+        mkdir output\hfcl\doc
         echo creating output folders ErrorLevel = %ERRORLEVEL%
 
         move asistex\hmg\source\*.* output\source
         echo creating output\source ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\bostaurus\*.* output\source
+        echo creating output\source\bostaurus ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\class\*.* output\source
+        echo creating output\source\class ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\crypt\*.* output\source
+        echo creating output\source\crypt ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\debugger\*.* output\source
+        echo creating output\source\debugger ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\edit\*.* output\source
+        echo creating output\source\edit ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\editex\*.* output\source
+        echo creating output\source\editex ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\graph\*.* output\source
+        echo creating output\source\graph ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\hbvpdf\*.* output\source
+        echo creating output\source\hbvpdf ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\hmgsql\*.* output\source
+        echo creating output\source\hmgsql ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\ini\*.* output\source
+        echo creating output\source\ini ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\source\report\*.* output\source
+        echo creating output\source\report ErrorLevel = %ERRORLEVEL%
+
         move asistex\hmg\include\*.* output\include
         echo creating output\include ErrorLevel = %ERRORLEVEL%
         move asistex\hmg\lib\*.* output\lib
         echo creating output\lib ErrorLevel = %ERRORLEVEL%
         move asistex\hmg\doc\*.* output\doc
         echo creating output\doc ErrorLevel = %ERRORLEVEL%
-        move asistex\hmg\samples\*.* output\samples
-        echo creating output\samples ErrorLevel = %ERRORLEVEL%
+        :: move asistex\hmg\samples\*.* output\samples
+        :: echo creating output\samples ErrorLevel = %ERRORLEVEL%
         move asistex\hmg\resources\*.* output\resources
         echo creating output\resources ErrorLevel = %ERRORLEVEL%
+
+        move asistex\hmg\doc\*.* output\doc
+        echo creating output\doc ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\doc\assets\*.* output\doc
+        echo creating output\doc\assets ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\doc\bostaurus\*.* output\doc
+        echo creating output\doc\bostaurus ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\doc\data\*.* output\doc
+        echo creating output\doc\data ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\doc\debugger\*.* output\doc
+        echo creating output\doc\debugger ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\doc\hmg hpdf\*.* output\doc
+        echo creating output\doc\hmg hpdf ErrorLevel = %ERRORLEVEL%
+
         move asistex\hmg\hfcl\*.* output\hfcl
         echo creating output\hfcl ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\hfcl\source*.* output\hfcl
+        echo creating output\hfcl\source ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\hfcl\resources\*.* output\hfcl
+        echo creating output\hfcl\resources ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\hfcl\doc\*.* output\hfcl
+        echo creating output\hfcl\doc ErrorLevel = %ERRORLEVEL%
+        move asistex\hmg\hfcl\include\*.* output\hfcl
+        echo creating output\hfcl\include ErrorLevel = %ERRORLEVEL%
+
+        robocopy asistex\hmg\samples output\samples /E
+        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+        echo %ERRORLEVEL%
+        echo creating hmg samples ErrorLevel = %ERRORLEVEL%
 
         copy asistex\hmg\*.* output\
 
