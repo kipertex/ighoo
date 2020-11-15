@@ -36,17 +36,8 @@ jobs:
       run: |
         mkdir output
 
-        mkdir output\harbour\bin
-        mkdir output\harbour\contrib
-        mkdir output\harbour\doc
-        mkdir output\harbour\include
-        mkdir output\harbour\lib
-
-        move harbour\bin\*.* output\harbour\bin
-        move harbour\contrib\*.* output\harbour\contrib
-        move harbour\doc\*.* output\harbour\doc
-        move harbour\include\*.* output\harbour\include
-        move harbour\lib\*.* output\harbour\lib
+        :: robocopy c:\harbour output\harbour /E
+        :: if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
         mkdir output\source
         mkdir output\include
