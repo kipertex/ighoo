@@ -1,4 +1,4 @@
-name: HMG official all libs 32bit MinGW 930 unicode
+name: Harbour binaries 32b MinGW 930
 
 on:
   push:
@@ -12,72 +12,55 @@ jobs:
     if: github.actor == github.event.repository.owner.login
 
     steps:
-    - name: Checkout asistex repo
+    - name: Checkout harbour/core repo
       uses: actions/checkout@v2
       with:
-       repository: asistex/HMG
-       path: asistex/HMG
+       repository: harbour/core
+       path: harbour
 
     - name: Install dependencies
       run: |
         (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/mingw32.zip', 'C:\temp\mingw32.zip')
         Expand-Archive -LiteralPath C:\temp\mingw32.zip -DestinationPath C:\mingw32 -Force
-        (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/hmg_tools_compilation/raw/main/hb32_mgw930_32b_2020_10_27.zip', 'C:\temp\harbour.zip')
-        Expand-Archive -LiteralPath C:\temp\harbour.zip -DestinationPath C:\harbour -Force
-        gcc --version
-        C:\harbour\bin\harbour -build
+        choco install openssl
+        choco install curl
+        (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/acesdk.zip', 'C:\temp\acesdk.zip')
+        Expand-Archive -LiteralPath C:\temp\acesdk.zip -DestinationPath C:\acesdk -Force
 
-    - name: Building lib HMG
+    - name: Compile Harbour
       shell: cmd
       run: |
-        cd asistex\hmg
-        set path=c:\mingw32\mingw32\bin;c:\harbour\bin;%path%
-        BuildAllLib32.bat
-        echo creating hmg libraries ErrorLevel = %ERRORLEVEL%
+        cd harbour
+        set HB_BUILD_MODE=c
+        set HB_USER_PRGFLAGS=-l-
+        set HB_BUILD_PARTS=all
+        set HB_BUILD_CONTRIBS=
+        set HB_WITH_OPENSSL=C:\OpenSSL\include
+        set HB_WITH_CURL=C:\curl\include
+        set HB_WITH_ADS=C:\acesdk
+        set HB_STATIC_OPENSSL=yes
+        set HB_STATIC_CURL=yes
+        set HB_COMPILER=mingw
+        set HB_BUILD_CONTRIB_DYN=no
+        set HB_BUILD_DYN=no
+        set HB_WITH_LIBHARU=c:\harbour\contrib\hbhpdf
+        set path=c:\mingw32\mingw32\bin;c:\program Files\OpenSSL-Win64\bin;%path%
+        win-make.exe
 
-    - name: Create output folders...
+    - name: Create output folders
       shell: cmd
       run: |
         mkdir output
 
-        robocopy c:\harbour output\harbour /E
+        robocopy harbour\ output /E
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
         echo %ERRORLEVEL%
         echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
 
-        mkdir output\include
-        mkdir output\lib
-        mkdir output\resources
-        echo creating output folders ErrorLevel = %ERRORLEVEL%
-
-        robocopy asistex\hmg\source output\source /E
+        robocopy harbour\lib\*.* output\lib\win\mingw
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
         echo %ERRORLEVEL%
-        echo creating hmg source ErrorLevel = %ERRORLEVEL%
-
-        move asistex\hmg\include\*.* output\include
-        echo creating output\include ErrorLevel = %ERRORLEVEL%
-        move asistex\hmg\lib\*.* output\lib
-        echo creating output\lib ErrorLevel = %ERRORLEVEL%
-        move asistex\hmg\resources\*.* output\resources
-        echo creating output\resources ErrorLevel = %ERRORLEVEL%
-
-        robocopy asistex\hmg\doc output\doc /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo creating hmg doc ErrorLevel = %ERRORLEVEL%
-
-        robocopy asistex\hmg\hfcl output\hfcl /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo creating hmg hfcl ErrorLevel = %ERRORLEVEL%
-
-        robocopy asistex\hmg\samples output\samples /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo creating hmg samples ErrorLevel = %ERRORLEVEL%
-
-        copy asistex\hmg\*.* output\
+        echo copying harbour libs ErrorLevel = %ERRORLEVEL%
 
     - name: Get current time
       uses: srfrnk/current-time@master
@@ -85,11 +68,10 @@ jobs:
       with:
         format: YYYY_MM_DD
 
-    - name: Create artifact
+    - name: Upload Harbour to artifact
       env:
-        TIME: "${{ steps.current-time.outputs.formattedTime }}"
+         TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
       with:
-        name: hmgoffi_all_hb32_mgw930_uni_32b_${{ env.TIME }}
-        path: output
-
+       name: hb32_mgw930_32b_${{ env.TIME }}
+       path: output
