@@ -38,6 +38,7 @@ jobs:
       run: |
         mkdir output
 
+        :: mkdir output\harbour
         :: robocopy c:\harbour output\harbour /E
         :: if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
         :: echo %ERRORLEVEL%
@@ -57,19 +58,19 @@ jobs:
 
         move HMG-Official\hmg\source\*.* output\source
         echo %ERRORLEVEL%
-        move output\include\*.* output\include
+        move HMG-Official\hmg\include\*.* output\include
         echo %ERRORLEVEL%
-        move lib\*.* output\lib
+        move HMG-Official\hmg\lib\*.* output\lib
         echo %ERRORLEVEL%
-        move contrib\*.* output\contrib
+        move HMG-Official\hmg\contrib\*.* output\contrib
         echo %ERRORLEVEL%
-        move doc\*.* output\doc
+        move HMG-Official\hmg\doc\*.* output\doc
         echo %ERRORLEVEL%
-        move samples\*.* output\samples
+        move HMG-Official\hmg\samples\*.* output\samples
         echo %ERRORLEVEL%
-        move resources\*.* output\resources
+        move HMG-Official\hmg\resources\*.* output\resources
         echo %ERRORLEVEL%
-        move hfsl\*.* output\hfsl
+        move HMG-Official\hmg\hfsl\*.* output\hfsl
         echo %ERRORLEVEL%
 
         copy HMG-Official\hmg\*.* output\
