@@ -57,6 +57,18 @@ jobs:
         echo %ERRORLEVEL%
         echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
 
+        del output\.git /S /Q
+        del output\.git* /S /Q
+        del output\os2-make.exe /S /Q
+        del output\dos-make.exe /S /Q
+        del output\win-make.exe /S /Q
+        del output\.travis.yml /S /Q
+        del output\package /S /Q
+        del output\debian /S /Q
+        del output\config /S /Q
+        del output\addons /S /Q
+        move output\bin\win\mingw\*.* output\bin
+
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
