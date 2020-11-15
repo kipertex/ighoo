@@ -42,11 +42,11 @@ jobs:
         mkdir output\harbour\include
         mkdir output\harbour\lib
 
-        move HMG-Official\harbour\bin\*.* output\harbour\bin
-        move HMG-Official\harbour\contrib\*.* output\harbour\contrib
-        move HMG-Official\harbour\doc\*.* output\harbour\doc
-        move HMG-Official\harbour\include\*.* output\harbour\include
-        move HMG-Official\harbour\lib\*.* output\harbour\lib
+        move harbour\bin\*.* output\harbour\bin
+        move harbour\contrib\*.* output\harbour\contrib
+        move harbour\doc\*.* output\harbour\doc
+        move harbour\include\*.* output\harbour\include
+        move harbour\lib\*.* output\harbour\lib
 
         mkdir output\source
         mkdir output\include
