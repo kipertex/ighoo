@@ -40,10 +40,10 @@ jobs:
       run: |
         mkdir output
 
-        robocopy c:\harbour output\harbour /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
+        :: robocopy c:\harbour output\harbour /E
+        :: if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+        :: echo %ERRORLEVEL%
+        :: echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
 
         mkdir output\include
         mkdir output\lib
