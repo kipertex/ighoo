@@ -96,45 +96,65 @@ jobs:
         IF EXIST output\src\rdd\usrrdd\rdds\obj rmdir output\src\rdd\usrrdd\rdds\obj /S /Q
 
         move output\lib\3rd\win\mingw\libunicow*.* output\lib\win\mingw
-        IF EXIST output\lib\3rd rmdir output\lib\3rd /S /Q
-        IF EXIST output\src\vm\obj rmdir output\src\vm\obj /S /Q
-        IF EXIST output\src\rtl\obj rmdir output\src\rtl\obj /S /Q
-        IF EXIST output\src\rdd\obj rmdir output\src\rdd\obj /S /Q
-        IF EXIST output\src\pp\obj rmdir output\src\pp\obj /S /Q
-        IF EXIST output\src\nortl\obj rmdir output\src\nortl\obj /S /Q
-        IF EXIST output\src\main\obj rmdir output\src\main\obj /S /Q
-        IF EXIST output\src\macro\obj rmdir output\src\macro\obj /S /Q
-        IF EXIST output\src\lang\obj rmdir output\src\lang\obj /S /Q
-        IF EXIST output\src\hbextern\obj rmdir output\src\hbextern\obj /S /Q
-        IF EXIST output\src\dynlib\obj rmdir output\src\dynlib\obj /S /Q
-        IF EXIST output\src\debug\obj rmdir output\src\debug\obj /S /Q
-        IF EXIST output\src\compiler\obj rmdir output\src\compiler\obj /S /Q
-        IF EXIST output\src\common\obj rmdir output\src\common\obj /S /Q
-        IF EXIST output\src\codepage\obj rmdir output\src\codepage\obj /S /Q
-        IF EXIST output\src\3rd\zlib\obj rmdir output\src\3rd\zlib\obj /S /Q
-        IF EXIST output\src\3rd\tiff\obj rmdir output\src\3rd\tiff\obj /S /Q
-        IF EXIST output\src\3rd\png\obj rmdir output\src\3rd\png\obj /S /Q
-        IF EXIST output\src\3rd\pcre\obj rmdir output\src\3rd\pcre\obj /S /Q
-        IF EXIST output\src\3rd\jpeg\obj rmdir output\src\3rd\jpeg\obj /S /Q
-        IF EXIST output\src\rdd\usrrdd\obj rmdir output\src\rdd\usrrdd\obj /S /Q
-        IF EXIST output\src\rdd\nulsys\obj rmdir output\src\rdd\nulsys\obj /S /Q
-        IF EXIST output\src\rdd\hsx\obj rmdir output\src\rdd\hsx\obj /S /Q
-        IF EXIST output\src\rdd\hbsix\obj rmdir output\src\rdd\hbsix\obj /S /Q
-        IF EXIST output\src\rdd\dbfntx\obj rmdir output\src\rdd\dbfntx\obj /S /Q
-        IF EXIST output\src\rdd\dbfnsx\obj rmdir output\src\rdd\dbfnsx\obj /S /Q
-        IF EXIST output\src\rdd\dbffpt\obj rmdir output\src\rdd\dbffpt\obj /S /Q
-        IF EXIST output\src\rdd\dbfcdx\obj rmdir output\src\rdd\dbfcdx\obj /S /Q
-        IF EXIST output\src\vm\vmmt\obj rmdir output\src\vm\vmmt\obj /S /Q
-        IF EXIST output\src\vm\mainwin\obj rmdir output\src\vm\mainwin\obj /S /Q
-        IF EXIST output\src\vm\mainstd\obj rmdir output\src\vm\mainstd\obj /S /Q
-        IF EXIST output\src\vm\maindllp\obj rmdir output\src\vm\maindllp\obj /S /Q
-        IF EXIST output\src\vm\maindllh\obj rmdir output\src\vm\maindllh\obj /S /Q
-        IF EXIST output\utils\hbtest\obj rmdir output\utils\hbtest\obj /S /Q
-        IF EXIST output\utils\hbmk2\obj rmdir output\utils\hbmk2\obj /S /Q
-        IF EXIST output\utils\hbi18n\obj rmdir output\utils\hbi18n\obj /S /Q
+        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
+
+        IF EXIST output\lib\3rd rmdir output\lib\3rd /S /Q ELSE echo 1
+        IF EXIST output\src\vm\obj rmdir output\src\vm\obj /S /Q ELSE echo 2
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\rtl\obj rmdir output\src\rtl\obj /S /Q ELSE echo 3
+        IF EXIST output\src\rdd\obj rmdir output\src\rdd\obj /S /Q ELSE echo 4
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\pp\obj rmdir output\src\pp\obj /S /Q ELSE echo 5
+        IF EXIST output\src\nortl\obj rmdir output\src\nortl\obj /S /Q ELSE echo 6
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\main\obj rmdir output\src\main\obj /S /Q ELSE echo 7
+        IF EXIST output\src\macro\obj rmdir output\src\macro\obj /S /Q ELSE echo 8
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\lang\obj rmdir output\src\lang\obj /S /Q ELSE echo 9
+        IF EXIST output\src\hbextern\obj rmdir output\src\hbextern\obj /S /Q ELSE echo 10
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\dynlib\obj rmdir output\src\dynlib\obj /S /Q ELSE echo 11
+        IF EXIST output\src\debug\obj rmdir output\src\debug\obj /S /Q ELSE echo 12
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\compiler\obj rmdir output\src\compiler\obj /S /Q ELSE echo 13
+        IF EXIST output\src\common\obj rmdir output\src\common\obj /S /Q ELSE echo 14
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\codepage\obj rmdir output\src\codepage\obj /S /Q ELSE echo 15
+        IF EXIST output\src\3rd\zlib\obj rmdir output\src\3rd\zlib\obj /S /Q ELSE echo 16
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\3rd\tiff\obj rmdir output\src\3rd\tiff\obj /S /Q ELSE echo 17
+        IF EXIST output\src\3rd\png\obj rmdir output\src\3rd\png\obj /S /Q ELSE echo 18
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\3rd\pcre\obj rmdir output\src\3rd\pcre\obj /S /Q ELSE echo 19
+        IF EXIST output\src\3rd\jpeg\obj rmdir output\src\3rd\jpeg\obj /S /Q ELSE echo 20
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\rdd\usrrdd\obj rmdir output\src\rdd\usrrdd\obj /S /Q ELSE echo 21
+        IF EXIST output\src\rdd\nulsys\obj rmdir output\src\rdd\nulsys\obj /S /Q ELSE echo 22
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\rdd\hsx\obj rmdir output\src\rdd\hsx\obj /S /Q ELSE echo 23
+        IF EXIST output\src\rdd\hbsix\obj rmdir output\src\rdd\hbsix\obj /S /Q ELSE echo 24
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\rdd\dbfntx\obj rmdir output\src\rdd\dbfntx\obj /S /Q ELSE echo 25
+        IF EXIST output\src\rdd\dbfnsx\obj rmdir output\src\rdd\dbfnsx\obj /S /Q ELSE echo 26
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\rdd\dbffpt\obj rmdir output\src\rdd\dbffpt\obj /S /Q ELSE echo 27
+        IF EXIST output\src\rdd\dbfcdx\obj rmdir output\src\rdd\dbfcdx\obj /S /Q ELSE echo 28
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\vm\vmmt\obj rmdir output\src\vm\vmmt\obj /S /Q ELSE echo 29
+        IF EXIST output\src\vm\mainwin\obj rmdir output\src\vm\mainwin\obj /S /Q ELSE echo 30
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\vm\mainstd\obj rmdir output\src\vm\mainstd\obj /S /Q ELSE echo 31
+        IF EXIST output\src\vm\maindllp\obj rmdir output\src\vm\maindllp\obj /S /Q ELSE echo 32
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\src\vm\maindllh\obj rmdir output\src\vm\maindllh\obj /S /Q ELSE echo 33
+        IF EXIST output\utils\hbtest\obj rmdir output\utils\hbtest\obj /S /Q ELSE echo 34
+        echo errorlevel = %ERRORLEVEL%
+        IF EXIST output\utils\hbmk2\obj rmdir output\utils\hbmk2\obj /S /Q ELSE echo 35
+        IF EXIST output\utils\hbi18n\obj rmdir output\utils\hbi18n\obj /S /Q ELSE echo 36
+
 
         echo fin limpiar objects
-
+        echo errorlevel = %ERRORLEVEL%
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
 
     - name: Get current time
