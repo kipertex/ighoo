@@ -1,9 +1,10 @@
-name: HMG official all libs 32bit MinGW 930 unicode
+name: Harbour binaries DYN 32b MinGW 102
 
 on:
   push:
     branches:
       - 'master'
+      - 'main'
 
 jobs:
   build:
@@ -12,83 +13,151 @@ jobs:
     if: github.actor == github.event.repository.owner.login
 
     steps:
-    - name: Checkout HMG-Official repo
+    - name: Checkout harbour/core repo
       uses: actions/checkout@v2
       with:
-       repository: HMG-Official/HMG
-       path: HMG-Official/HMG
+       repository: harbour/core
+       path: harbour
 
     - name: Install dependencies
       run: |
         (new-object System.Net.WebClient).DownloadFile('https://github.com/brechtsanders/winlibs_mingw/releases/download/10.2.0-11.0.0-9.0.0-r3/winlibs-i686-posix-dwarf-gcc-10.2.0-llvm-11.0.0-mingw-w64-8.0.0-r3.zip', 'C:\temp\mingw32.zip')
         Expand-Archive -LiteralPath C:\temp\mingw32.zip -DestinationPath C:\mingw32 -Force
-        (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/hmg_tools_compilation/raw/main/bin/hb32_mgw930_32b_20201117-14.zip', 'C:\temp\harbour.zip')
-        Expand-Archive -LiteralPath C:\temp\harbour.zip -DestinationPath C:\harbour -Force
-        gcc --version
-        C:\harbour\bin\harbour -build
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/hmg_tools_compilation/raw/main/bin/OpenSSL-Win32.zip', 'C:\temp\OpenSSL-Win32.zip')
+        Expand-Archive -LiteralPath C:\temp\OpenSSL-Win32.zip -DestinationPath C:\OpenSSL -Force
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/hmg_tools_compilation/raw/main/bin/curl-7.54.0-win32-mingw.zip', 'C:\temp\curl-7.54.0-win32-mingw.zip')
+        Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/hmg_tools_compilation/raw/main/bin/acesdk.zip', 'C:\temp\acesdk.zip')
+        Expand-Archive -LiteralPath C:\temp\acesdk.zip -DestinationPath C:\acesdk -Force
+#        (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/mingw32.zip', 'C:\temp\mingw32.zip')
+#        Expand-Archive -LiteralPath C:\temp\mingw32.zip -DestinationPath C:\mingw32 -Force
+#         (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/OpenSSL-Win32.zip', 'C:\temp\OpenSSL-Win32.zip')
+#        Expand-Archive -LiteralPath C:\temp\OpenSSL-Win32.zip -DestinationPath C:\OpenSSL -Force
+#         (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/curl-7.54.0-win32-mingw.zip', 'C:\temp\curl-7.54.0-win32-mingw.zip')
+#        Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
+#         (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/acesdk.zip', 'C:\temp\acesdk.zip')
+#        Expand-Archive -LiteralPath C:\temp\acesdk.zip -DestinationPath C:\acesdk -Force
 
-    - name: Building lib HMG
+    - name: Compile Harbour
       shell: cmd
       run: |
-        cd HMG-Official\hmg
-        set path=c:\mingw32\mingw32\bin;c:\harbour\bin;%path%
-        BuildAllLib32.bat
-        echo creating hmg libraries ErrorLevel = %ERRORLEVEL%
+        cd harbour
+        set HB_BUILD_MODE=c
+        set HB_USER_PRGFLAGS=-l-
+        set HB_BUILD_PARTS=all
+        set HB_BUILD_CONTRIBS=
+        set HB_WITH_OPENSSL=c:\openssl\include
+        set HB_WITH_CURL=c:\curl\include
+        set HB_WITH_ADS=c:\acesdk
+        set HB_STATIC_OPENSSL=yes
+        set HB_STATIC_CURL=yes
+        set HB_COMPILER=mingw
+        set HB_BUILD_CONTRIB_DYN=yes
+        set HB_BUILD_DYN=yes
+        set HB_WITH_LIBHARU=c:\harbour\contrib\hbhpdf
+        set path=c:\mingw32\mingw32\bin;c:\openssl\bin;c:\curl;%path%
+        win-make.exe
 
-    - name: Create output folders...
+    - name: Create output folders
       shell: cmd
       run: |
         mkdir output
 
-        :: robocopy c:\harbour output\harbour /E
-        :: if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        :: echo %ERRORLEVEL%
-        :: echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
-
-        mkdir output\include
-        mkdir output\lib
-        mkdir output\resources
-        echo creating output folders ErrorLevel = %ERRORLEVEL%
-
-        robocopy HMG-Official\hmg\source output\source /E
+        robocopy harbour\ output /E
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
         echo %ERRORLEVEL%
-        echo creating hmg source ErrorLevel = %ERRORLEVEL%
+        echo creating harbour binaries ErrorLevel = %ERRORLEVEL%
 
-        move HMG-Official\hmg\include\*.* output\include
-        echo creating output\include ErrorLevel = %ERRORLEVEL%
-        move HMG-Official\hmg\lib\*.* output\lib
-        echo creating output\lib ErrorLevel = %ERRORLEVEL%
-        move HMG-Official\hmg\resources\*.* output\resources
-        echo creating output\resources ErrorLevel = %ERRORLEVEL%
+        rmdir output\.git /S /Q
+        del output\.git* /S /Q
+        del output\os2-make.exe /S /Q
+        del output\dos-make.exe /S /Q
+        del output\win-make.exe /S /Q
+        del output\.travis.yml /S /Q
+        rmdir output\package /S /Q
+        rmdir output\debian /S /Q
+        rmdir output\config /S /Q
+        rmdir output\addons /S /Q
+        rmdir output\lib\win\mingw\.hbmk /S /Q
+        echo limpiar objects 0
+        move output\bin\win\mingw\*.* output\bin
+        rmdir output\bin\win /S /Q
+        echo mover harbour binaries ErrorLevel = %ERRORLEVEL%
 
-        robocopy HMG-Official\hmg\doc output\doc /E
+        rmdir output\src\rtl\gtwin\obj /S /Q
+        rmdir output\src\rtl\gtwvt\obj /S /Q
+        rmdir output\src\rtl\gtstd\obj /S /Q
+        rmdir output\src\rdd\usrrdd\rdds\obj /S /Q
+        echo limpiar objects 1
+        move output\lib\3rd\win\mingw\libunicow*.* output\lib\win\mingw
+        rmdir output\lib\3rd /S /Q
+        echo limpiar objects 1-2
+        rmdir output\src\vm\obj /S /Q
+        echo limpiar objects 2
+        rmdir output\src\rtl\obj /S /Q
+        rmdir output\src\rdd\obj /S /Q
+        echo limpiar objects 3
+        rmdir output\src\pp\obj /S /Q
+        rmdir output\src\nortl\obj /S /Q
+        echo limpiar objects 4
+        rmdir output\src\main\obj /S /Q
+        rmdir output\src\macro\obj /S /Q
+        echo limpiar objects 5
+        rmdir output\src\lang\obj /S /Q
+        rmdir output\src\hbextern\obj /S /Q
+        echo limpiar objects 6
+        :: rmdir output\src\dynlib\obj /S /Q
+        rmdir output\src\debug\obj /S /Q
+        echo limpiar objects 7
+        rmdir output\src\compiler\obj /S /Q
+        rmdir output\src\common\obj /S /Q
+        echo limpiar objects 8
+        rmdir output\src\codepage\obj /S /Q
+        rmdir output\src\3rd\zlib\obj /S /Q
+        echo limpiar objects 9
+        rmdir output\src\3rd\tiff\obj /S /Q
+        rmdir output\src\3rd\png\obj /S /Q
+        echo limpiar objects 10
+        rmdir output\src\3rd\pcre\obj /S /Q
+        rmdir output\src\3rd\jpeg\obj /S /Q
+        echo limpiar objects 11
+        rmdir output\src\rdd\usrrdd\obj /S /Q
+        rmdir output\src\rdd\nulsys\obj /S /Q
+        echo limpiar objects 12
+        rmdir output\src\rdd\hsx\obj /S /Q
+        rmdir output\src\rdd\hbsix\obj /S /Q
+        echo limpiar objects 13
+        rmdir output\src\rdd\dbfntx\obj /S /Q
+        rmdir output\src\rdd\dbfnsx\obj /S /Q
+        echo limpiar objects 14
+        rmdir output\src\rdd\dbffpt\obj /S /Q
+        rmdir output\src\rdd\dbfcdx\obj /S /Q
+        echo limpiar objects 15
+        rmdir output\src\vm\vmmt\obj /S /Q
+        rmdir output\src\vm\mainwin\obj /S /Q
+        echo limpiar objects 16
+        rmdir output\src\vm\mainstd\obj /S /Q
+        rmdir output\src\vm\maindllp\obj /S /Q
+        echo limpiar objects 17
+        rmdir output\src\vm\maindllh\obj /S /Q
+        rmdir output\utils\hbtest\obj /S /Q
+        echo limpiar objects 18
+        rmdir output\utils\hbmk2\obj /S /Q
+        rmdir output\utils\hbi18n\obj /S /Q
+        echo fin limpiar objects
+
         if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo creating hmg doc ErrorLevel = %ERRORLEVEL%
-
-        robocopy HMG-Official\hmg\hfcl output\hfcl /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo creating hmg hfcl ErrorLevel = %ERRORLEVEL%
-
-        robocopy HMG-Official\hmg\samples output\samples /E
-        if %ERRORLEVEL% EQU 1 set ERRORLEVEL=0
-        echo %ERRORLEVEL%
-        echo creating hmg samples ErrorLevel = %ERRORLEVEL%
-
-        copy HMG-Official\hmg\*.* output\
 
     - name: Get current time
       uses: srfrnk/current-time@master
       id: current-time
       with:
-        format: YYYY_MM_DD
+        format: YYYYMMDD-HH
 
-    - name: Create artifact
+    - name: Upload Harbour to artifact
       env:
-        TIME: "${{ steps.current-time.outputs.formattedTime }}"
+         F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
       uses: actions/upload-artifact@v2
       with:
-        name: hmgoffi_all_hb32_mgw930_uni_32b_${{ env.TIME }}
-        path: output
+       name: hb32_dyn_mgw102_32b_${{ env.F_TIME }}
+       path: output
