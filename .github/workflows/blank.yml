@@ -29,6 +29,9 @@ jobs:
         Expand-Archive -LiteralPath C:\temp\curl-7.54.0-win32-mingw.zip -DestinationPath C:\curl -Force
          (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/hmg_tools_compilation/raw/main/bin/acesdk.zip', 'C:\temp\acesdk.zip')
         Expand-Archive -LiteralPath C:\temp\acesdk.zip -DestinationPath C:\acesdk -Force
+         (new-object System.Net.WebClient).DownloadFile('https://github.com/asistex/ighoo/raw/master/workflow/win-make.zip', 'C:\temp\win-make.zip')
+        Expand-Archive -LiteralPath C:\temp\win-make.zip -DestinationPath C:\win-make -Force
+
 #        (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/mingw32.zip', 'C:\temp\mingw32.zip')
 #        Expand-Archive -LiteralPath C:\temp\mingw32.zip -DestinationPath C:\mingw32 -Force
 #         (new-object System.Net.WebClient).DownloadFile('https://bitbucket.org/lorenzodla/mod_harbour_actions_resources/downloads/OpenSSL-Win32.zip', 'C:\temp\OpenSSL-Win32.zip')
@@ -55,7 +58,7 @@ jobs:
         set HB_BUILD_CONTRIB_DYN=yes
         set HB_BUILD_DYN=yes
         set HB_WITH_LIBHARU=c:\harbour\contrib\hbhpdf
-        set path=c:\mingw32\mingw32\bin;c:\openssl\bin;c:\curl;%path%
+        set path=c:\mingw32\mingw32\bin;c:\openssl\bin;c:\curl;C:\win-make;%path%
         win-make.exe
 
     - name: Create output folders
