@@ -13,10 +13,10 @@ jobs:
     if: github.actor == github.event.repository.owner.login
 
     steps:
-    - name: Checkout harbour/core repo
+    - name: Checkout vszakats/hb harbour repo
       uses: actions/checkout@v2
       with:
-       repository: harbour/core
+       repository: vszakats/hb
        path: harbour
 
     - name: Install dependencies
