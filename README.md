@@ -1,5 +1,5 @@
 # ighoo
-
+[![GitHub license](https://img.shields.io/github/license/asistex/ighoo)](https://github.com/asistex/ighoo/blob/develop/LICENSE)
 *IGHoo* is GUI lib written with harbour OOP syntax.
 
 * GUI- Graphic User Interfase for harbour to create Microsoft Windows applications.
